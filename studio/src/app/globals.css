@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Tokens
+   Palette: warm paper, espresso ink, butter, terracotta, with a
+   pistachio note used sparingly. No blues or purples at studio level.
+------------------------------------------------------------------- */
+@theme inline {
+  --color-paper: #f3ebdd;
+  --color-oat: #e8dcc7;
+  --color-ink: #2a1c15;
+  --color-cocoa: #5e4334;
+  --color-butter: #f1c95b;
+  --color-terracotta: #b2431c;
+  --color-ember: #d9532b;
+  --color-pistachio: #b9c48c;
+  --color-crema: #f8f3ea;
+
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-dm-mono), ui-monospace, monospace;
+  --font-grotesk: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-didone: var(--font-gloock), ui-serif, Georgia, serif;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  --gutter: clamp(1rem, 3.2vw, 2.75rem);
+  --nav-h: 4.25rem;
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-h);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "kern";
+}
+
+::selection {
+  background: var(--color-butter);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Paper grain: a very light SVG noise so flat colour reads as stock, not screen. */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.2 0 0 0 0 0.1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------------------------
+   Type
+------------------------------------------------------------------- */
+@utility display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+  font-weight: 380;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+}
+
+@utility wonk {
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+}
+
+/* Display type set small needs to breathe a little more. */
+@utility display-sm {
+  letter-spacing: -0.012em;
+}
+
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+@utility measure {
+  max-width: 34rem;
+}
+
+@utility frame {
+  padding-inline: var(--gutter);
+}
+
+/* Underline that draws in from the left on hover/focus. */
+@utility ink-link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.5s var(--ease-out-soft);
+  &:hover,
+  &:focus-visible {
+    background-size: 0% 1px;
+    background-position: 100% 100%;
+  }
+}
+
+/* Underline that draws in on hover of itself or its .group parent. */
+.draw-link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.5s var(--ease-out-soft);
+}
+.draw-link:hover,
+.group:hover .draw-link,
+.group:focus-visible .draw-link {
+  background-size: 100% 1px;
+  background-position: 0 100%;
+}
+
+/* ------------------------------------------------------------------
+   Motion
+   Reveal states only apply once JS has run (html.js), so content is
+   never hidden for people without it.
+------------------------------------------------------------------- */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(1.75rem);
+  transition:
+    opacity 0.9s var(--ease-out-soft),
+    transform 1.1s var(--ease-out-soft);
+  transition-delay: var(--delay, 0ms);
+}
+.js [data-reveal][data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Headline lines rise out of a mask on load. */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}
+.line-mask > span {
+  display: block;
+  animation: rise 1.2s var(--ease-out-soft) both;
+  animation-delay: var(--delay, 0ms);
+}
+@keyframes rise {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 48s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow {
+  animation: spin-slow 28s linear infinite;
+}
+
+@keyframes steam {
+  0% {
+    transform: translateY(0) scaleY(1);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-14px) scaleY(1.15);
+    opacity: 0;
+  }
+}
+.steam {
+  animation: steam 3.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: bottom;
+}
+
+/* Process: the rule fills as the section scrolls through, where supported. */
+@supports (animation-timeline: view()) {
+  .proof-line {
+    transform-origin: left;
+    animation: fill linear both;
+    animation-timeline: view();
+    animation-range: entry 30% cover 60%;
+  }
+  @keyframes fill {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+  .marquee-track,
+  .spin-slow,
+  .steam {
+    animation: none !important;
+  }
+  .proof-line {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Mock websites
+   Concept screens are sized in container units so the whole layout
+   scales as one piece, like a screenshot, at any frame width.
+------------------------------------------------------------------- */
+.mock {
+  container-type: inline-size;
+}
+
+/* Ticket edge for the inquiry form. */
+.perforated {
+  --hole: 9px;
+  mask:
+    radial-gradient(circle at 50% 0, transparent calc(var(--hole) - 0.5px), #000 var(--hole)) top / calc(var(--hole) * 2.6) 51% repeat-x,
+    radial-gradient(circle at 50% 100%, transparent calc(var(--hole) - 0.5px), #000 var(--hole)) bottom / calc(var(--hole) * 2.6) 51% repeat-x;
+}
