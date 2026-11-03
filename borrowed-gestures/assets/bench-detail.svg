@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="800" height="600" role="img" aria-label="Illustration of a seat edge close-up">
+<title>Illustration of a seat edge close-up</title>
+<rect width="400" height="300" fill="#fffdf8"/>
+<g fill="none" stroke="#2b2620" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<path d="M10 110 H 250 C 320 110, 340 140, 340 190 V 290"/><path d="M10 140 H 240 C 290 140, 305 160, 305 200 V 290" stroke-width="1.5" stroke-dasharray="5 6"/><path d="M250 108 q 20 10 25 40" stroke-width="1.5" stroke="#8c3a12"/><path d="M260 110 q 20 13 24 44" stroke-width="1.5" stroke="#8c3a12"/><path d="M270 112 q 20 16 23 48" stroke-width="1.5" stroke="#8c3a12"/><path d="M280 114 q 20 19 22 52" stroke-width="1.5" stroke="#8c3a12"/><path d="M290 116 q 20 22 21 56" stroke-width="1.5" stroke="#8c3a12"/><path d="M300 118 q 20 25 20 60" stroke-width="1.5" stroke="#8c3a12"/>
+</g>
+<text x="16" y="286" font-family="system-ui, sans-serif" font-size="13" fill="#46403a">Illustration</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="800" height="600" role="img" aria-label="Illustration of steps with a handrail">
+<title>Illustration of steps with a handrail</title>
+<rect width="400" height="300" fill="#fffdf8"/>
+<g fill="none" stroke="#2b2620" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<path d="M40 240 h50 v-30"/><path d="M90 210 h50 v-30"/><path d="M140 180 h50 v-30"/><path d="M190 150 h50 v-30"/><path d="M240 120 h50 v-30"/><path d="M290 90 h50 v-30"/><path d="M40 240 H 340"/><path d="M40 170 L 340 20" stroke-width="5"/><line x1="60" y1="160" x2="60" y2="230" stroke-width="2"/><line x1="120" y1="130" x2="120" y2="200" stroke-width="2"/><line x1="180" y1="100" x2="180" y2="170" stroke-width="2"/><line x1="240" y1="70" x2="240" y2="140" stroke-width="2"/><line x1="300" y1="40" x2="300" y2="110" stroke-width="2"/><circle cx="200" cy="90" r="30" stroke="#8c3a12" stroke-dasharray="6 5"/>
+</g>
+<text x="16" y="286" font-family="system-ui, sans-serif" font-size="13" fill="#46403a">Illustration</text>
+</svg>

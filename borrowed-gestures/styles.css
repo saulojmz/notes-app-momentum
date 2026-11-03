@@ -1,0 +1,619 @@
+/* =========================================================
+   Borrowed Gestures — styles
+   1. Variables        5. Collection page
+   2. Base             6. Map and stop list
+   3. Layout helpers   7. Object page
+   4. Shared parts     8. Motion preferences
+   ========================================================= */
+
+/* ---------- 1. Variables ---------- */
+:root {
+  --paper: #f8f4ec;        /* warm off-white background */
+  --surface: #fffdf8;      /* cards and panels */
+  --ink: #1b1915;          /* near-black text */
+  --ink-soft: #46403a;     /* secondary text (still high contrast) */
+  --accent: #8c3a12;       /* dark rust */
+  --accent-ink: #ffffff;   /* text on the accent colour */
+  --line: #2b2620;         /* borders */
+  --tint: #f1e6d8;         /* soft highlight behind notices */
+
+  --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --radius: 4px;
+  --space: 1rem;
+  --max: 68rem;
+}
+
+/* ---------- 2. Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.0625rem;   /* 17px */
+  line-height: 1.6;
+  overflow-wrap: break-word;
+}
+
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 0.5em;
+}
+
+h1 { font-size: clamp(2.1rem, 8vw, 3.25rem); }
+h2 { font-size: clamp(1.5rem, 5vw, 2rem); margin-top: 0.5em; }
+h3 { font-size: 1.25rem; }
+
+p { margin: 0 0 1em; max-width: 38rem; }
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+a:hover { color: var(--ink); }
+
+/* Strong, visible keyboard focus everywhere. */
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px var(--paper);
+}
+
+/* ---------- 3. Layout helpers ---------- */
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--space);
+}
+
+/* Read by screen readers, not shown on screen. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space);
+  top: -10rem;
+  z-index: 1000;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+}
+
+.skip-link:focus { top: 0.5rem; }
+
+/* ---------- 4. Shared parts ---------- */
+.site-header {
+  border-bottom: 2px solid var(--line);
+  padding: 0.75rem 0;
+}
+
+.site-name {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.site-name a {
+  color: var(--ink);
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.5rem 0;
+}
+
+.site-footer {
+  margin-top: 4rem;
+  border-top: 2px solid var(--line);
+  padding: 1.5rem 0 2.5rem;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.7rem 1.25rem;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.button:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.notice {
+  background: var(--tint);
+  border-left: 5px solid var(--accent);
+  padding: 0.75rem 1rem;
+  max-width: 40rem;
+}
+
+/* Numbered specimen label, like a small museum tag. */
+.specimen {
+  display: inline-block;
+  margin: 0 0 0.5rem;
+  padding: 0.1rem 0.5rem;
+  border: 2px solid var(--line);
+  border-radius: 2px;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  background: var(--surface);
+}
+
+.object-type {
+  color: var(--ink-soft);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Rectangular frame for images and illustrations. */
+.frame {
+  margin: 0 0 1rem;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.illustration-label {
+  border-top: 2px solid var(--line);
+  padding: 0.4rem 0.75rem;
+  background: var(--tint);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8em;
+  height: 1.8em;
+  margin-right: 0.35em;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  color: var(--accent);
+  font-family: var(--serif);
+  font-size: 0.8em;
+  vertical-align: 0.15em;
+}
+
+.tag {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ---------- 5. Collection page ---------- */
+.intro {
+  position: relative;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+/* Decorative contour line (hidden from screen readers in HTML). */
+.contour {
+  display: block;
+  width: 100%;
+  max-width: 22rem;
+  height: 2.5rem;
+  margin-bottom: 0.5rem;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.tagline {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-style: italic;
+}
+
+.lead { font-size: 1.1rem; }
+
+.duration { font-weight: 700; }
+
+.steps {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+}
+
+.steps li {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+.note { color: var(--ink-soft); }
+
+.orientation,
+.collection {
+  padding-top: 2rem;
+}
+
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.filter label {
+  font-weight: 700;
+}
+
+.filter select {
+  min-height: 48px;
+  min-width: min(12rem, 100%);
+  max-width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+}
+
+.filter-help {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.filter-status {
+  font-weight: 600;
+}
+
+.empty-state {
+  padding: 1rem;
+  border: 2px dashed var(--line);
+}
+
+/* Grid: 1 column on phones, 2 when there is room, 3 on desktop. */
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 36rem) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 60rem) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.card {
+  position: relative;      /* lets the stretched link cover the card */
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.card .card-image {
+  margin: 0;
+  border: 0;
+  border-bottom: 2px solid var(--line);
+  border-radius: 0;
+}
+
+.card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-body .specimen { align-self: flex-start; }
+
+.card-title { margin-bottom: 0.25rem; }
+
+.card-link {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* Stretch the link's clickable area over the whole card. */
+.card-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.card-link:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Show focus on the whole card when its link is focused. */
+.card:focus-within {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.card:hover { border-color: var(--accent); }
+.card:hover .card-link { text-decoration: underline; }
+
+.card-clue { margin-bottom: 0.75rem; }
+
+.meta {
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.category {
+  display: inline-block;
+  padding: 0.05rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.category::before { content: "Movement: "; font-weight: 400; }
+
+.card-cta {
+  margin: auto 0 0;
+  padding-top: 0.5rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ---------- 6. Map and stop list ---------- */
+.orientation-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 48rem) {
+  .orientation-layout { grid-template-columns: 3fr 2fr; }
+}
+
+.map {
+  height: 18rem;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.hint {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.map-placeholder {
+  position: relative;
+  padding: 1.25rem;
+  border: 2px dashed var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.placeholder-lines {
+  display: block;
+  width: 100%;
+  max-width: 14rem;
+  height: auto;
+  margin-bottom: 0.75rem;
+  fill: none;
+  stroke: var(--ink-soft);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 5;
+}
+
+.stop-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stop-list li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.stop-list .specimen { margin: 0.15rem 0 0; }
+
+.stop-text a {
+  display: inline-block;
+  font-weight: 700;
+  padding: 0.25rem 0;   /* larger touch target */
+}
+
+.stop-location {
+  display: block;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+/* Numbered markers on the Leaflet map. */
+.map-marker span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+
+/* ---------- 7. Object page ---------- */
+.back-link {
+  display: inline-block;
+  margin: 1rem 0;
+  padding: 0.5rem 0;
+  font-weight: 700;
+}
+
+.object-header { margin-bottom: 1.5rem; }
+
+.location { color: var(--ink-soft); }
+
+.encounter-step { margin-bottom: 1.5rem; }
+
+.prompt { font-size: 1.15rem; }
+
+/* Keep illustrations a comfortable size on wide screens. */
+.object-page .frame { max-width: 40rem; }
+
+.wider-view summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0.5rem 0;
+  font-weight: 700;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.wider-view[open] summary { margin-bottom: 0.75rem; }
+
+.explore-pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 44rem) {
+  .explore-pair { grid-template-columns: 1fr 1fr; }
+}
+
+.panel {
+  padding: 1rem 1.25rem;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  margin-bottom: 0;
+}
+
+.panel h2 { font-size: 1.4rem; }
+.panel .prompt { margin-bottom: 0; }
+
+.step-away {
+  margin: 1.5rem 0;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+.story-panel {
+  margin-top: 1.25rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.story-block {
+  padding: 1rem 1.25rem;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.story-block p:last-child { margin-bottom: 0; }
+
+.imagined {
+  border-style: dashed;
+}
+
+.imagined #imagined-moment {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-style: italic;
+}
+
+.field-notes dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.15rem 1rem;
+}
+
+@media (min-width: 36rem) {
+  .field-notes dl { grid-template-columns: max-content 1fr; }
+}
+
+.field-notes dt { font-weight: 700; }
+.field-notes dd { margin: 0 0 0.5rem; }
+
+.continue {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--line);
+}
+
+.not-found { padding: 2rem 0; }
+
+/* ---------- 8. Motion preferences ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

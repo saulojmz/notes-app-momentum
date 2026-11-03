@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- script.js replaces this with the object's own title. -->
+  <title>Object — Borrowed Gestures</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="data.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <p class="site-name"><a href="index.html">Borrowed Gestures</a></p>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <nav aria-label="Breadcrumb">
+      <a class="back-link" href="index.html#collection">← Back to all objects</a>
+    </nav>
+
+    <!-- Shown by script.js when the ?id= in the address matches a record. -->
+    <article id="object-page" class="object-page" hidden>
+      <header class="object-header">
+        <p id="object-status" class="notice" hidden>Example encounter — object and location unverified.</p>
+        <p class="specimen"><span class="visually-hidden">Specimen number </span><span id="object-number"></span></p>
+        <h1 id="object-title"></h1>
+        <p id="object-type" class="object-type"></p>
+        <p class="location"><strong>Location:</strong> <span id="object-location"></span></p>
+      </header>
+
+      <!-- Step 1 -->
+      <section class="encounter-step" aria-labelledby="find-title">
+        <h2 id="find-title"><span class="step-num" aria-hidden="true">1</span> Find the detail</h2>
+        <figure class="frame">
+          <img id="detail-image" alt="" width="800" height="600">
+          <figcaption id="detail-caption" class="illustration-label" hidden>Illustration — replace with site photograph.</figcaption>
+        </figure>
+        <p id="find-prompt" class="prompt"></p>
+
+        <details class="wider-view">
+          <summary>Need a wider view?</summary>
+          <figure class="frame">
+            <img id="context-image" alt="" width="800" height="600" loading="lazy">
+            <figcaption id="context-caption" class="illustration-label" hidden>Illustration — replace with site photograph.</figcaption>
+          </figure>
+        </details>
+      </section>
+
+      <!-- Step 2: the touch/movement prompt and an equally visible alternative -->
+      <div class="explore-pair">
+        <section class="encounter-step panel" aria-labelledby="gesture-title">
+          <h2 id="gesture-title"><span class="step-num" aria-hidden="true">2</span> Borrow a gesture</h2>
+          <p id="gesture-prompt" class="prompt"></p>
+        </section>
+
+        <section class="encounter-step panel" aria-labelledby="alternative-title">
+          <h2 id="alternative-title">Another way to explore</h2>
+          <p id="alternative-prompt" class="prompt"></p>
+        </section>
+      </div>
+
+      <p class="step-away">Take a moment with the object. Return when you’re ready.</p>
+
+      <!-- Step 3: reveal. The button only shows more content; it does not detect anything. -->
+      <section class="encounter-step" aria-labelledby="reveal-heading">
+        <h2 id="reveal-heading"><span class="step-num" aria-hidden="true">3</span> Meet its story</h2>
+        <button id="reveal-button" class="button" type="button"
+                aria-expanded="false" aria-controls="story-panel">Reveal the observation &amp; story</button>
+        <p id="reveal-status" class="visually-hidden" role="status" aria-live="polite"></p>
+
+        <div id="story-panel" class="story-panel" hidden>
+          <section class="story-block" aria-labelledby="observation-title">
+            <h3 id="observation-title">What we can see</h3>
+            <p id="observation-status" class="tag" hidden>Demonstration note</p>
+            <p id="observation"></p>
+          </section>
+
+          <section class="story-block imagined" aria-labelledby="imagined-title">
+            <h3 id="imagined-title">An imagined moment</h3>
+            <p class="tag">Fiction, not research</p>
+            <p id="imagined-moment"></p>
+          </section>
+
+          <section class="story-block" aria-labelledby="future-title">
+            <h3 id="future-title">Next time you pass</h3>
+            <p id="future-invitation"></p>
+          </section>
+
+          <section class="story-block field-notes" aria-labelledby="notes-title">
+            <h3 id="notes-title">Field notes</h3>
+            <dl>
+              <dt>Observed on</dt><dd id="meta-date"></dd>
+              <dt>Material</dt><dd id="meta-material"></dd>
+              <dt>Photograph</dt><dd id="meta-credit"></dd>
+              <dt>Source and uncertainty</dt><dd id="meta-source"></dd>
+            </dl>
+          </section>
+        </div>
+      </section>
+
+      <nav class="continue" aria-labelledby="continue-title">
+        <h2 id="continue-title">Continue exploring</h2>
+        <p><a class="button" href="index.html#collection">Explore another object</a></p>
+        <p id="next-suggestion" class="next-suggestion"></p>
+      </nav>
+    </article>
+
+    <!-- Shown when the id is missing or does not match any record. -->
+    <section id="not-found" class="not-found" hidden aria-labelledby="not-found-title">
+      <h1 id="not-found-title">We couldn’t find that object</h1>
+      <p>The link may be incomplete, or the object may have been renamed.</p>
+      <p><a class="button" href="index.html#collection">See all objects</a></p>
+    </section>
+
+    <noscript>
+      <p class="notice">This page needs JavaScript to show the selected object. <a href="index.html">Return to the collection</a>.</p>
+    </noscript>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Borrowed Gestures — an Interaction Design 1 prototype, UT Austin.</p>
+      <p>Illustrations are placeholders. Stories marked “An imagined moment” are fiction.</p>
+    </div>
+  </footer>
+</body>
+</html>

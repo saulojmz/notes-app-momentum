@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Borrowed Gestures — small movements around the Art Building</title>
+  <meta name="description" content="A small field guide to ordinary objects around UT Austin's Art Building and the gestures they support.">
+
+  <!-- Leaflet map library (version 1.9.4). Integrity hashes match the official quick-start. -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- "defer" runs scripts in this order after the page is parsed. -->
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script defer src="data.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <p class="site-name"><a href="index.html">Borrowed Gestures</a></p>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- 1. Introduction -->
+    <section class="intro wrap" aria-labelledby="page-title">
+      <svg class="contour" aria-hidden="true" focusable="false" viewBox="0 0 320 40" preserveAspectRatio="none">
+        <path d="M2 30 C 50 4, 90 4, 130 22 S 220 38, 260 16 S 310 10, 318 20" />
+      </svg>
+      <h1 id="page-title">Borrowed Gestures</h1>
+      <p class="tagline">Small movements. Familiar things. Traces of the people before us.</p>
+      <p class="lead">Explore ordinary objects around the Art Building. Find a detail, borrow a gesture, and discover a different way to meet a familiar place.</p>
+
+      <p class="duration">About 20 minutes, at your own pace.</p>
+
+      <ol class="steps">
+        <li><span class="step-num" aria-hidden="true">1</span> <strong>Find a detail</strong></li>
+        <li><span class="step-num" aria-hidden="true">2</span> <strong>Explore a gesture</strong></li>
+        <li><span class="step-num" aria-hidden="true">3</span> <strong>Meet its story</strong></li>
+      </ol>
+
+      <p class="note">Touch is optional. Every encounter includes a way to explore by looking or moving.</p>
+
+      <p><a class="button" href="#orientation">Explore the objects</a></p>
+
+      <p class="notice" role="note">
+        <strong>Prototype collection:</strong> example objects and stories. Exact locations and photographs will be added after field observation.
+      </p>
+    </section>
+
+    <!-- 2. Orientation: map (when verified) and a plain text list -->
+    <section id="orientation" class="orientation wrap" aria-labelledby="orientation-title" tabindex="-1">
+      <h2 id="orientation-title">Where to look</h2>
+
+      <div class="orientation-layout">
+        <div class="map-area">
+          <!-- Interactive map: only shown when at least one object has verified coordinates. -->
+          <div id="map" class="map" hidden role="region" aria-label="Map of objects. Markers open object information."></div>
+          <p id="map-hint" class="hint" hidden>Select a numbered marker to open object information. The list beside the map has the same stops.</p>
+
+          <!-- Placeholder: shown while locations are unverified (or if the map cannot load). -->
+          <div id="map-placeholder" class="map-placeholder">
+            <svg class="placeholder-lines" aria-hidden="true" focusable="false" viewBox="0 0 200 120">
+              <path d="M10 100 C 40 60, 70 90, 100 50 S 160 30, 190 20" />
+              <path d="M10 110 C 50 80, 80 105, 120 70 S 170 55, 190 45" />
+            </svg>
+            <h3 id="map-placeholder-title">Locations to be verified</h3>
+            <p id="map-placeholder-text">Exact map locations will be added after field observation. Until then, this is not a map, and no route is shown.</p>
+          </div>
+        </div>
+
+        <div class="stop-list-area">
+          <h3>The stops</h3>
+          <ol id="stop-list" class="stop-list">
+            <!-- Filled in by script.js from data.js -->
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Collection grid and filter -->
+    <section id="collection" class="collection wrap" aria-labelledby="collection-title">
+      <h2 id="collection-title">The collection</h2>
+
+      <div class="filter">
+        <label for="movement-filter">Explore by movement</label>
+        <select id="movement-filter" name="movement">
+          <option value="all">All gestures</option>
+          <option value="Grip">Grip</option>
+          <option value="Glide">Glide</option>
+          <option value="Pause">Pause</option>
+          <option value="Pass">Pass</option>
+        </select>
+      </div>
+      <p class="filter-help">Categories describe the theme of each object. Every stop also offers a way to explore by looking.</p>
+
+      <!-- Screen readers hear this count when it changes; focus stays on the select. -->
+      <p id="filter-status" class="filter-status" role="status" aria-live="polite"></p>
+
+      <ul id="collection-grid" class="grid">
+        <!-- Cards are created by renderCards() in script.js -->
+      </ul>
+
+      <p id="empty-state" class="empty-state" hidden>No objects in this movement yet. Choose “All gestures” to see the full collection.</p>
+
+      <noscript>
+        <p class="notice">This collection needs JavaScript to display its objects.</p>
+      </noscript>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Borrowed Gestures — an Interaction Design 1 prototype, UT Austin.</p>
+      <p>Illustrations are placeholders. Stories marked “An imagined moment” are fiction.</p>
+    </div>
+  </footer>
+</body>
+</html>

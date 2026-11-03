@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="800" height="600" role="img" aria-label="Illustration of a doorway with a ground-level threshold">
+<title>Illustration of a doorway with a ground-level threshold</title>
+<rect width="400" height="300" fill="#fffdf8"/>
+<g fill="none" stroke="#2b2620" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<path d="M120 230 V 40 H 280 V 230"/><path d="M140 230 V 60 H 260 V 230" stroke-width="1.5"/><path d="M20 230 H 380"/><path d="M60 270 L 120 230 M340 270 L 280 230" stroke-width="1.5"/><path d="M120 230 H 280" stroke-width="5" stroke="#8c3a12"/><circle cx="200" cy="232" r="28" stroke="#8c3a12" stroke-dasharray="6 5"/>
+</g>
+<text x="16" y="286" font-family="system-ui, sans-serif" font-size="13" fill="#46403a">Illustration</text>
+</svg>

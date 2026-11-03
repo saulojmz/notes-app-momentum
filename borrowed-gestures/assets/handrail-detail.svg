@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="800" height="600" role="img" aria-label="Illustration of a handrail close-up">
+<title>Illustration of a handrail close-up</title>
+<rect width="400" height="300" fill="#fffdf8"/>
+<g fill="none" stroke="#2b2620" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<path d="M10 150 C 120 120, 280 120, 390 150" stroke-width="40" stroke="#2b2620"/><path d="M10 150 C 120 120, 280 120, 390 150" stroke-width="34" stroke="#fffdf8"/><line x1="150" y1="118" x2="162" y2="152" stroke-width="1.5" stroke="#8c3a12"/><line x1="159" y1="118" x2="171" y2="152" stroke-width="1.5" stroke="#8c3a12"/><line x1="168" y1="118" x2="180" y2="152" stroke-width="1.5" stroke="#8c3a12"/><line x1="177" y1="118" x2="189" y2="152" stroke-width="1.5" stroke="#8c3a12"/><line x1="186" y1="118" x2="198" y2="152" stroke-width="1.5" stroke="#8c3a12"/><line x1="195" y1="118" x2="207" y2="152" stroke-width="1.5" stroke="#8c3a12"/><line x1="204" y1="118" x2="216" y2="152" stroke-width="1.5" stroke="#8c3a12"/><line x1="213" y1="118" x2="225" y2="152" stroke-width="1.5" stroke="#8c3a12"/><line x1="222" y1="118" x2="234" y2="152" stroke-width="1.5" stroke="#8c3a12"/><line x1="231" y1="118" x2="243" y2="152" stroke-width="1.5" stroke="#8c3a12"/><line x1="240" y1="118" x2="252" y2="152" stroke-width="1.5" stroke="#8c3a12"/><line x1="249" y1="118" x2="261" y2="152" stroke-width="1.5" stroke="#8c3a12"/><path d="M150 112 L150 160 M250 112 L250 160" stroke-dasharray="4 4" stroke-width="2"/><path d="M60 230 C 80 200, 120 195, 150 210" stroke-width="2"/>
+</g>
+<text x="16" y="286" font-family="system-ui, sans-serif" font-size="13" fill="#46403a">Illustration</text>
+</svg>

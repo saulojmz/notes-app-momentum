@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="800" height="600" role="img" aria-label="Illustration of a bench">
+<title>Illustration of a bench</title>
+<rect width="400" height="300" fill="#fffdf8"/>
+<g fill="none" stroke="#2b2620" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<path d="M50 160 H 350" stroke-width="10"/><path d="M50 120 H 350" stroke-width="6"/><path d="M80 165 V 240 M320 165 V 240 M80 125 V 160 M320 125 V 160"/><path d="M20 240 H 380"/><circle cx="200" cy="162" r="24" stroke="#8c3a12" stroke-dasharray="6 5"/>
+</g>
+<text x="16" y="286" font-family="system-ui, sans-serif" font-size="13" fill="#46403a">Illustration</text>
+</svg>
