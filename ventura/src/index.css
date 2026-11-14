@@ -1,0 +1,364 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * ─────────────────────────────────────────────────────────────────────────────
+ *  Ventura design tokens
+ *  Every colour, font, radius and shadow in the app resolves to a variable
+ *  declared here. To restyle the app, change these values — not components.
+ *  Colours are bare HSL channels so Tailwind opacity modifiers work
+ *  (e.g. `bg-primary/10`).  See DESIGN.md for the full map.
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+@layer base {
+  :root {
+    /* Surfaces — warm paper */
+    --background: 40 33% 97%;
+    --foreground: 30 12% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 30 12% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 12% 10%;
+
+    /* Brand — ultramarine, an evolution of the original #7061E8 */
+    --primary: 238 70% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Neutral fills */
+    --secondary: 38 26% 92%;
+    --secondary-foreground: 30 12% 10%;
+    --muted: 38 26% 93%;
+    --muted-foreground: 30 6% 40%;
+    --accent: 38 26% 91%;
+    --accent-foreground: 30 12% 10%;
+
+    /* Lines */
+    --border: 36 18% 87%;
+    --input: 36 16% 84%;
+    --ring: 238 70% 56%;
+
+    /* Ink — dark surfaces (nav dock, camera, hero cards) */
+    --ink: 30 12% 10%;
+    --ink-foreground: 40 33% 97%;
+    --ink-muted: 36 8% 66%;
+
+    /* Photo overlays — always dark, regardless of theme */
+    --scrim: 30 20% 5%;
+    --on-image: 0 0% 100%;
+
+    /* Highlight — ratings, small moments of warmth */
+    --highlight: 38 95% 52%;
+    --highlight-foreground: 30 12% 10%;
+
+    /* Status */
+    --success: 152 52% 34%;
+    --success-foreground: 0 0% 100%;
+    --warning: 34 90% 44%;
+    --warning-foreground: 0 0% 100%;
+    --destructive: 4 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --info: 210 70% 46%;
+    --info-foreground: 0 0% 100%;
+
+    /* Map categories */
+    --cat-events: 238 70% 56%;
+    --cat-food: 14 74% 52%;
+    --cat-cafes: 26 42% 36%;
+
+    /* Typography */
+    --font-display: "Fraunces Variable", "Iowan Old Style", Georgia, serif;
+    --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "Geist Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    /* Shape */
+    --radius: 1rem;
+
+    /* Elevation — warm-tinted, soft */
+    --shadow-xs: 0 1px 2px hsl(30 20% 10% / 0.05);
+    --shadow-sm: 0 1px 2px hsl(30 20% 10% / 0.04), 0 2px 8px -2px hsl(30 20% 10% / 0.08);
+    --shadow-md: 0 2px 4px hsl(30 20% 10% / 0.04), 0 8px 24px -6px hsl(30 20% 10% / 0.12);
+    --shadow-lg: 0 4px 8px hsl(30 20% 10% / 0.05), 0 20px 48px -12px hsl(30 20% 10% / 0.22);
+    --shadow-float: 0 1px 2px hsl(30 20% 10% / 0.08), 0 10px 30px -8px hsl(30 20% 10% / 0.28);
+
+    /* Layout */
+    --dock-height: 64px;
+    --dock-offset: 16px;
+
+    /* shadcn sidebar + charts (kept for completeness) */
+    --sidebar-background: 40 33% 97%;
+    --sidebar-foreground: 30 12% 10%;
+    --sidebar-primary: 238 70% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 38 26% 92%;
+    --sidebar-accent-foreground: 30 12% 10%;
+    --sidebar-border: 36 18% 87%;
+    --sidebar-ring: 238 70% 56%;
+    --chart-1: 238 70% 56%;
+    --chart-2: 14 74% 52%;
+    --chart-3: 152 52% 34%;
+    --chart-4: 38 95% 52%;
+    --chart-5: 30 6% 40%;
+  }
+
+  .dark {
+    --background: 30 10% 7%;
+    --foreground: 40 25% 94%;
+    --card: 30 8% 11%;
+    --card-foreground: 40 25% 94%;
+    --popover: 30 8% 11%;
+    --popover-foreground: 40 25% 94%;
+
+    --primary: 236 85% 70%;
+    --primary-foreground: 30 12% 8%;
+
+    --secondary: 30 6% 16%;
+    --secondary-foreground: 40 25% 94%;
+    --muted: 30 6% 15%;
+    --muted-foreground: 36 8% 62%;
+    --accent: 30 6% 17%;
+    --accent-foreground: 40 25% 94%;
+
+    --border: 30 6% 20%;
+    --input: 30 6% 24%;
+    --ring: 236 85% 70%;
+
+    --ink: 40 25% 94%;
+    --ink-foreground: 30 12% 8%;
+    --ink-muted: 30 6% 38%;
+
+    --highlight: 40 95% 60%;
+    --success: 152 45% 50%;
+    --warning: 36 90% 56%;
+    --destructive: 4 75% 60%;
+    --info: 210 75% 62%;
+
+    --cat-events: 236 85% 70%;
+    --cat-food: 14 80% 62%;
+    --cat-cafes: 28 45% 58%;
+
+    --sidebar-background: 30 10% 7%;
+    --sidebar-foreground: 40 25% 94%;
+    --sidebar-primary: 236 85% 70%;
+    --sidebar-primary-foreground: 30 12% 8%;
+    --sidebar-accent: 30 6% 16%;
+    --sidebar-accent-foreground: 40 25% 94%;
+    --sidebar-border: 30 6% 20%;
+    --sidebar-ring: 236 85% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-size: 15px;
+    line-height: 1.5;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.18);
+  }
+}
+
+/*
+ * Component-level recipes. Reach for these before stacking utilities so that
+ * a restyle only touches this file.
+ */
+@layer components {
+  /* Type */
+  .text-display {
+    font-family: var(--font-display);
+    font-weight: 450;
+    font-variation-settings: "opsz" 96, "SOFT" 40;
+    letter-spacing: -0.025em;
+    line-height: 1.02;
+  }
+  .text-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-variation-settings: "opsz" 36, "SOFT" 30;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+  }
+  .eyebrow {
+    @apply font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground;
+  }
+  .meta {
+    @apply font-mono text-xs text-muted-foreground;
+  }
+
+  /* Surfaces */
+  .surface {
+    @apply rounded-2xl border border-border/70 bg-card text-card-foreground shadow-sm;
+  }
+  .surface-sunken {
+    @apply rounded-2xl bg-secondary;
+  }
+  .surface-ink {
+    @apply rounded-2xl bg-ink text-ink-foreground;
+  }
+
+  /* Floating controls on top of maps / light imagery */
+  .glass {
+    @apply border border-border/60 bg-card/90 shadow-float backdrop-blur-xl;
+  }
+  /* Floating controls on top of photography */
+  .glass-dark {
+    @apply border border-on-image/15 bg-scrim/40 text-on-image backdrop-blur-md;
+  }
+
+  /* Photo gradients */
+  .scrim-b {
+    @apply bg-gradient-to-t from-scrim/85 via-scrim/25 to-transparent;
+  }
+  .scrim-t {
+    @apply bg-gradient-to-b from-scrim/50 to-transparent;
+  }
+
+  /* Leave room for the floating dock */
+  .pb-dock {
+    padding-bottom: calc(var(--dock-height) + var(--dock-offset) * 2 + env(safe-area-inset-bottom));
+  }
+  .bottom-dock {
+    bottom: calc(var(--dock-height) + var(--dock-offset) * 1.75 + env(safe-area-inset-bottom));
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Safe-area helpers. Use on elements that set no other top padding / offset. */
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  .top-safe {
+    top: calc(env(safe-area-inset-top) + 1rem);
+  }
+  .pb-safe {
+    padding-bottom: max(env(safe-area-inset-bottom), 16px);
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Motion */
+  .animate-fade-in {
+    animation: fadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-fade-only {
+    animation: fadeOnly 0.25s ease-out both;
+  }
+  .animate-scale-in {
+    animation: scaleIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-fade-scale-in {
+    animation: fadeScaleIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-slide-up {
+    animation: slideUp 0.4s cubic-bezier(0.32, 0.72, 0, 1) both;
+  }
+  .animate-slide-in-from-bottom {
+    animation: slideUp 0.4s cubic-bezier(0.32, 0.72, 0, 1) both;
+  }
+  .animate-slide-in-right {
+    animation: slideInRight 0.35s cubic-bezier(0.32, 0.72, 0, 1) both;
+  }
+  .animate-marker-pulse {
+    animation: markerPulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  .stagger > * {
+    animation: fadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .stagger > *:nth-child(2) { animation-delay: 40ms; }
+  .stagger > *:nth-child(3) { animation-delay: 80ms; }
+  .stagger > *:nth-child(4) { animation-delay: 120ms; }
+  .stagger > *:nth-child(5) { animation-delay: 160ms; }
+  .stagger > *:nth-child(6) { animation-delay: 200ms; }
+  .stagger > *:nth-child(n + 7) { animation-delay: 240ms; }
+
+  .press {
+    transition: transform 0.15s ease;
+  }
+  .press:active {
+    transform: scale(0.97);
+  }
+
+  .scan-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 140px;
+    background: linear-gradient(to bottom, transparent, hsl(var(--on-image) / 0.28), transparent);
+    box-shadow: 0 1px 0 hsl(var(--on-image) / 0.6);
+    animation: scan 900ms cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeOnly {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes fadeScaleIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  @keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+  @keyframes markerPulse {
+    0% { transform: scale(1); opacity: 0.55; }
+    100% { transform: scale(2.4); opacity: 0; }
+  }
+  @keyframes scan {
+    from { transform: translateY(-140px); }
+    to { transform: translateY(100vh); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in,
+    .animate-scale-in,
+    .animate-fade-scale-in,
+    .animate-slide-up,
+    .animate-slide-in-from-bottom,
+    .animate-slide-in-right,
+    .stagger > * {
+      animation-duration: 1ms;
+    }
+    .animate-marker-pulse,
+    .scan-line {
+      animation: none;
+    }
+  }
+}
