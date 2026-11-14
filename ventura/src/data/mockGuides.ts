@@ -1,10 +1,11 @@
 import { Guide, MeetupLocation } from '@/types/guide';
+import { photo } from "@/lib/photos";
 
 export const mockGuides: Guide[] = [
   {
     id: 'guide-1',
     name: 'Sophie MacLeod',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
+    avatar: photo("1494790108377-be9c29b29330"),
     bio: "Edinburgh native passionate about sharing hidden gems and local stories. I love taking visitors to secret spots most tourists never see. Available at £25/hour.",
     hourlyRate: 25,
     rating: 4.9,
@@ -17,7 +18,7 @@ export const mockGuides: Guide[] = [
   {
     id: 'guide-2',
     name: 'James Fraser',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
+    avatar: photo("1507003211169-0a1dd7228f2d"),
     bio: "Former chef turned food tour guide. I'll show you the best Scottish cuisine, from traditional haggis to modern fusion. Available at £30/hour.",
     hourlyRate: 30,
     rating: 4.8,
@@ -30,7 +31,7 @@ export const mockGuides: Guide[] = [
   {
     id: 'guide-3',
     name: 'Ailsa Campbell',
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop',
+    avatar: photo("1438761681033-6461ffad8d80"),
     bio: "History enthusiast specializing in Edinburgh's medieval past and royal heritage. Let me bring the castle and Royal Mile to life with fascinating tales. Available at £28/hour.",
     hourlyRate: 28,
     rating: 5.0,
@@ -43,7 +44,7 @@ export const mockGuides: Guide[] = [
   {
     id: 'guide-4',
     name: 'Finn Morrison',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop',
+    avatar: photo("1500648767791-00dcc994a43e"),
     bio: "Adventure seeker and outdoor enthusiast. I'll take you hiking up Arthur's Seat or exploring Holyrood Park's wild side. Available at £22/hour.",
     hourlyRate: 22,
     rating: 4.7,
@@ -56,7 +57,7 @@ export const mockGuides: Guide[] = [
   {
     id: 'guide-5',
     name: 'Isla Reid',
-    avatar: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop',
+    avatar: photo("1487412720507-e7ab37603c6f"),
     bio: 'Local artist and culture lover who knows all the best galleries, street art, and creative spaces in Edinburgh. Available at £26/hour.',
     hourlyRate: 26,
     rating: 4.9,
@@ -69,7 +70,7 @@ export const mockGuides: Guide[] = [
   {
     id: 'guide-6',
     name: 'Callum Stewart',
-    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop',
+    avatar: photo("1506794778202-cad84cf45f1d"),
     bio: "Night owl who loves Edinburgh's pub scene and nightlife. I'll show you the best traditional pubs, live music venues, and hidden bars. Available at £24/hour.",
     hourlyRate: 24,
     rating: 4.8,
@@ -82,7 +83,7 @@ export const mockGuides: Guide[] = [
   {
     id: 'guide-7',
     name: 'Moira Douglas',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop',
+    avatar: photo("1534528741775-53994a69daeb"),
     bio: "Professional photographer and visual storyteller. I'll help you capture Edinburgh's beauty while sharing photography tips and local insights. Available at £32/hour.",
     hourlyRate: 32,
     rating: 5.0,
@@ -95,7 +96,7 @@ export const mockGuides: Guide[] = [
   {
     id: 'guide-8',
     name: 'Duncan MacKay',
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop',
+    avatar: photo("1472099645785-5658abf4ff4e"),
     bio: "Third-generation Edinburgh local with endless stories about the city's evolution. I specialize in authentic experiences off the beaten path. Available at £27/hour.",
     hourlyRate: 27,
     rating: 4.9,

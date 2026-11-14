@@ -6,9 +6,9 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
-import onboardingScreen1 from "@/assets/onboarding-screen-1.png";
-import onboardingScreen2 from "@/assets/onboarding-screen-2.png";
-import onboardingScreen3 from "@/assets/onboarding-screen-3.png";
+import onboardingScreen1 from "@/assets/onboarding-screen-1.jpg";
+import onboardingScreen2 from "@/assets/onboarding-screen-2.jpg";
+import onboardingScreen3 from "@/assets/onboarding-screen-3.jpg";
 
 interface GuidesOnboardingProps {
   onComplete: () => void;

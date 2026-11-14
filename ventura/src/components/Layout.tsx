@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Map, CalendarDays, Camera, Users, User, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -28,9 +28,15 @@ const isActive = (item: NavItem, pathname: string) =>
 
 export const Layout = ({ children }: LayoutProps) => {
   const { pathname } = useLocation();
+
+  // New screens start at the top.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   const isCameraPage = pathname === "/camera";
   const isMapPage = pathname === "/map";
-  const isDetailPage = /^\/(itinerary|destinations|bookings)\/.+/.test(pathname);
+  // Detail pages and focused planner flows run full-screen.
+  const isDetailPage = /^\/(itinerary|destinations|bookings|plan-trip)\/.+/.test(pathname);
   const showDock = !isCameraPage && !isDetailPage;
 
   return (

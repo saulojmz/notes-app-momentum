@@ -31,6 +31,7 @@ If you find yourself needing one, add a token instead.
 | `--ink` / `--ink-foreground` / `--ink-muted` | Dark surfaces: nav dock, hero tiles, toasts | |
 | `--scrim` / `--on-image` | Photo overlays + text on photos (theme-independent) | |
 | `--highlight` | Ratings, warm accents | saffron |
+| `--primary-2` | Second gradient stop, used only for AI moments (`.bg-brand-gradient`, `.shimmer-bar`) | violet |
 | `--success` `--warning` `--destructive` `--info` | Status, safety map, entry types | |
 | `--cat-events` `--cat-food` `--cat-cafes` | Map marker colours | |
 
@@ -75,6 +76,39 @@ All colours are bare HSL channels, so opacity modifiers work: `bg-primary/10`.
   The camera landmark panel already uses it for an immersive look.
 - **Map tint:** the base map is desaturated with `[filter:saturate(0.55)_sepia(0.06)]` in `MapPage.tsx`.
 
+## Trip planner (v2)
+
+Ported from the trip-planner handoff and redrawn in Ventura's language.
+
+| Route | Screen |
+| --- | --- |
+| `/plan-trip` | Entry: guided or AI chat, resume, last plan, saved trips |
+| `/plan-trip/guided` | Nine questions, one per screen, progress auto-saved |
+| `/plan-trip/results` | World dot map with match-weighted markers, top three, other fits |
+| `/plan-trip/chat` | AI chat with a six-detail tracker, two-stage generation |
+| `/plan-trip/options` | Three AI itineraries, a separator, three traveler favourites |
+| `/itinerary/:id` | Planned trips open in the regular itinerary screen, with save and edit |
+
+Code lives in `src/features/planner/` (catalog, matching, itinerary builder, trips store, AI providers),
+`src/pages/planner/` and `src/components/planner/`. Saved trips appear on the Profile "Saved" tab.
+
+**AI providers** (`src/features/planner/ai/`), chosen once per session:
+1. **Claude**: when a host bridge (`window.__venturaHost`) or an artifact runtime (`window.claude`) is present.
+2. **Server**: the handoff's `travel-chat` edge function (`supabase/functions/travel-chat`) when
+   `VITE_SUPABASE_URL` / `VITE_SUPABASE_PUBLISHABLE_KEY` are set. Set `LOVABLE_API_KEY` (or swap in any
+   OpenAI-compatible endpoint) on the function.
+3. **Offline planner**: keyword-based, uses the destination catalog. Always works; also the fallback if a
+   viewer declines Claude.
+
+All three follow the handoff rules: six criteria before generating, one question at a time, no
+"I will now generate", stage 1 (AI itineraries) then stage 2 (traveler itineraries).
+
+## Interactive prototype build
+
+`npm run build:prototype` writes `dist-prototype/`: relative paths, in-memory routing, all imagery
+bundled. It starts at `/map`, or at the route in the embedding iframe's `data-start` attribute
+(or `window.__VENTURA_START__`). This is what the design review's flows canvas plays.
+
 ## Behaviour preserved from the handoff
 - Dock hidden on `/camera`, `/itinerary/:id`, `/destinations/:id`, `/bookings/:id`.
 - Itinerary detail back button → `/profile`.
@@ -92,6 +126,10 @@ All colours are bare HSL channels, so opacity modifiers work: `bg-primary/10`.
 - Profile save counts no longer change on every render.
 - Map filter row scrolls instead of clipping "Cafés"; action buttons no longer clip.
 - Unused `App.css` removed.
+- Mock photography bundled in `src/assets/photos` (look up with `photo(id)` from `src/lib/photos.ts`);
+  PNG assets converted to sized JPEGs (16 MB → 1.1 MB).
+- Storage access goes through `src/lib/storage.ts`, which never throws.
+- New screens scroll to the top.
 
 ## Copy changes (easy to revert)
 Collections on the Itineraries page now pair a category eyebrow with a headline

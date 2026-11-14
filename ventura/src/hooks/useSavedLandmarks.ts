@@ -1,43 +1,25 @@
 import { useState, useEffect } from 'react';
 import { SavedLandmark } from '@/types/camera';
 import { europeanLandmarks } from '@/data/europeanLandmarks';
+import { storage } from '@/lib/storage';
 
 const STORAGE_KEY = 'ventura_saved_landmarks';
-const LANDMARKS_VERSION = 'v3'; // Increment to force refresh with new landmark data
+const LANDMARKS_VERSION = 'v4'; // Increment to force refresh with new landmark data
 
 export const useSavedLandmarks = () => {
   const [savedLandmarks, setSavedLandmarks] = useState<SavedLandmark[]>([]);
 
   useEffect(() => {
-    const storedVersion = localStorage.getItem(`${STORAGE_KEY}_version`);
-    
-    // If version changed or no version, reset to default landmarks
-    if (storedVersion !== LANDMARKS_VERSION) {
+    // Seed with the sample discoveries when the stored data is from an older version or missing.
+    const storedVersion = storage.getRaw(`${STORAGE_KEY}_version`);
+    const stored = storage.get<SavedLandmark[]>(STORAGE_KEY, []);
+    if (storedVersion !== LANDMARKS_VERSION || stored.length === 0) {
       setSavedLandmarks(europeanLandmarks);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(europeanLandmarks));
-      localStorage.setItem(`${STORAGE_KEY}_version`, LANDMARKS_VERSION);
+      storage.set(STORAGE_KEY, europeanLandmarks);
+      storage.setRaw(`${STORAGE_KEY}_version`, LANDMARKS_VERSION);
       return;
     }
-
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        if (parsed.length > 0) {
-          setSavedLandmarks(parsed);
-        } else {
-          setSavedLandmarks(europeanLandmarks);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(europeanLandmarks));
-        }
-      } catch (e) {
-        console.error('Failed to load saved landmarks:', e);
-        setSavedLandmarks(europeanLandmarks);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(europeanLandmarks));
-      }
-    } else {
-      setSavedLandmarks(europeanLandmarks);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(europeanLandmarks));
-    }
+    setSavedLandmarks(stored);
   }, []);
 
   const saveLandmark = (landmark: SavedLandmark) => {
@@ -46,7 +28,7 @@ export const useSavedLandmarks = () => {
       if (exists) return prev;
       
       const updated = [landmark, ...prev];
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      storage.set(STORAGE_KEY, updated);
       return updated;
     });
   };
@@ -54,7 +36,7 @@ export const useSavedLandmarks = () => {
   const removeLandmark = (id: string) => {
     setSavedLandmarks((prev) => {
       const updated = prev.filter((l) => l.id !== id);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      storage.set(STORAGE_KEY, updated);
       return updated;
     });
   };

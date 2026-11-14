@@ -1,27 +1,21 @@
 import { useState, useEffect, useCallback } from 'react';
 import { GuideBooking } from '@/types/guide';
+import { storage } from '@/lib/storage';
 
 const STORAGE_KEY = 'ventura_guide_bookings';
 const CHANGE_EVENT = 'ventura:bookings-changed';
 
 const read = (): GuideBooking[] => {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (!stored) return [];
-    // Convert date strings back to Date objects
-    return JSON.parse(stored).map((booking: GuideBooking) => ({
-      ...booking,
-      date: new Date(booking.date),
-      createdAt: new Date(booking.createdAt),
-    }));
-  } catch (e) {
-    console.error('Failed to load bookings:', e);
-    return [];
-  }
+  // Convert date strings back to Date objects
+  return storage.get<GuideBooking[]>(STORAGE_KEY, []).map((booking) => ({
+    ...booking,
+    date: new Date(booking.date),
+    createdAt: new Date(booking.createdAt),
+  }));
 };
 
 const write = (bookings: GuideBooking[]) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(bookings));
+  storage.set(STORAGE_KEY, bookings);
   // Keep every mounted instance of this hook in sync (e.g. the Guides page
   // behind the booking modal).
   window.dispatchEvent(new Event(CHANGE_EVENT));

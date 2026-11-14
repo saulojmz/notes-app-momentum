@@ -16,6 +16,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Share } from "lucide-react";
+import { storage } from "@/lib/storage";
+import { useSavedTrips } from "@/features/planner/trips";
 import { toast } from "sonner";
 
 const ProfilePage = () => {
@@ -28,21 +30,20 @@ const ProfilePage = () => {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editForm, setEditForm] = useState(profileData);
 
-  // Load profile from localStorage
+  // Load profile from storage
   useEffect(() => {
-    const stored = localStorage.getItem("ventura_profile");
+    const stored = storage.get<typeof profileData | null>("ventura_profile", null);
     if (stored) {
-      const parsed = JSON.parse(stored);
-      setProfileData(parsed);
-      setEditForm(parsed);
+      setProfileData(stored);
+      setEditForm(stored);
     }
   }, []);
 
-  // Save profile to localStorage
   const handleSaveProfile = () => {
-    localStorage.setItem("ventura_profile", JSON.stringify(editForm));
+    storage.set("ventura_profile", editForm);
     setProfileData(editForm);
     setEditModalOpen(false);
+    toast.success("Profile updated");
   };
 
   // Filter user's posted itineraries (mock: where author name matches)
@@ -50,25 +51,16 @@ const ProfilePage = () => {
     (itinerary) => itinerary.author.name === "Alex. T" || itinerary.author.name === "Marie K." || itinerary.author.name === "Fiona M."
   );
 
-  // Get saved itineraries from localStorage
-  const [savedItineraryIds, setSavedItineraryIds] = useState<string[]>([]);
-  
-  useEffect(() => {
-    const stored = localStorage.getItem("ventura_saved_itineraries");
-    if (stored) {
-      setSavedItineraryIds(JSON.parse(stored));
-    }
-  }, []);
-
-  const savedItineraries = itineraries.filter((itinerary) =>
-    savedItineraryIds.includes(itinerary.id)
-  );
+  // Saved: trips from the planner plus any bookmarked catalog itineraries.
+  const { saved: savedTrips } = useSavedTrips();
+  const savedIds = storage.get<string[]>("ventura_saved_itineraries", []);
+  const savedItineraries = [...savedTrips, ...itineraries.filter((itinerary) => savedIds.includes(itinerary.id))];
 
   // Calculate stats
   const stats = {
     itineraries: userPostedItineraries.length,
     cities: 12, // Mock data
-    saved: 45, // Mock data
+    saved: 45 + savedTrips.length, // Mock base + saved trips
   };
 
   const initials = profileData.name

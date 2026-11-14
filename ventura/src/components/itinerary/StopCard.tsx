@@ -20,7 +20,8 @@ const categoryIcons = {
 /** One stop on the day timeline: time rail on the left, details on the right. */
 export const StopCard = ({ stop, isLast }: StopCardProps) => {
   const Icon = categoryIcons[stop.category as keyof typeof categoryIcons] || MapPin;
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${stop.coordinates.lat},${stop.coordinates.lng}`;
+  const query = stop.mapQuery ?? `${stop.coordinates.lat},${stop.coordinates.lng}`;
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 
   return (
     <li className="grid grid-cols-[56px_1fr] gap-3">

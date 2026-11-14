@@ -23,6 +23,8 @@ export interface ItineraryStop {
     lng: number;
   };
   tips?: string;
+  /** Free-text place for map links when coordinates are approximate. */
+  mapQuery?: string;
 }
 
 export interface ItineraryDay {

@@ -2,13 +2,18 @@ import { useParams, useNavigate } from "react-router-dom";
 import { ArrowUpRight, MapPinned } from "lucide-react";
 import { itineraries, destinations } from "@/data/mockItineraries";
 import { SmartImage, TopBar } from "@/components/kit";
+import { findTrip } from "@/features/planner/trips";
 
 const ItineraryMapView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const itinerary = itineraries.find((i) => i.id === id);
-  const destination = itinerary ? destinations.find((d) => d.id === itinerary.destinationId) : null;
+  const planned = itineraries.some((i) => i.id === id) ? undefined : findTrip(id);
+  const itinerary = itineraries.find((i) => i.id === id) ?? planned;
+  const mockDestination = itinerary ? destinations.find((d) => d.id === itinerary.destinationId) : null;
+  const destination = planned
+    ? { name: planned.destinationName, country: planned.country, imageUrl: planned.imageUrl }
+    : mockDestination;
 
   if (!itinerary || !destination) return null;
 
@@ -62,7 +67,7 @@ const ItineraryMapView = () => {
                 return (
                   <li key={stop.id}>
                     <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${stop.coordinates.lat},${stop.coordinates.lng}`}
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(stop.mapQuery ?? `${stop.coordinates.lat},${stop.coordinates.lng}`)}`}
                       target="_blank"
                       rel="noreferrer"
                       className="flex items-center gap-3 p-4 transition-colors hover:bg-accent/50"

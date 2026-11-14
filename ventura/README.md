@@ -11,6 +11,9 @@ npm run dev          # http://localhost:8080
 
 If the dev server fails with `EAFNOSUPPORT` (no IPv6), run `npx vite --host 127.0.0.1`.
 
+The trip planner lives under `/plan-trip`. Build the embeddable interactive prototype with
+`npm run build:prototype` (see DESIGN.md).
+
 Supabase is optional: without `VITE_SUPABASE_URL` / `VITE_SUPABASE_PUBLISHABLE_KEY` the app
 runs entirely on the mock data in `src/data/`.
 

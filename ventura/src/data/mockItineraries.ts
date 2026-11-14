@@ -1,6 +1,7 @@
 import { Destination, Itinerary, ItineraryTemplate, CategoryFilter, Region } from "@/types/itinerary";
-import edinburghSkyline from "@/assets/edinburgh-skyline.png";
-import krakowMarket from "@/assets/krakow-market.png";
+import edinburghSkyline from "@/assets/edinburgh-skyline.jpg";
+import krakowMarket from "@/assets/krakow-market.jpg";
+import { photo } from "@/lib/photos";
 
 export const regions: Region[] = ["All", "Europe", "Asia", "Americas", "Africa", "Oceania"];
 
@@ -48,7 +49,7 @@ export const destinations: Destination[] = [
     country: "Czech Republic",
     region: "Europe",
     description: "A fairytale city of Gothic spires, cobblestone streets, and medieval charm",
-    imageUrl: "https://images.unsplash.com/photo-1541849546-216549ae216d?w=800",
+    imageUrl: photo("1541849546-216549ae216d"),
     coordinates: { lat: 50.0755, lng: 14.4378 },
   },
   {
@@ -66,7 +67,7 @@ export const destinations: Destination[] = [
     country: "Canada",
     region: "Americas",
     description: "Mountain paradise in the Canadian Rockies with turquoise lakes and alpine wilderness",
-    imageUrl: "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=800",
+    imageUrl: photo("1503614472-8c93d56e92ce"),
     coordinates: { lat: 51.1784, lng: -115.5708 },
   },
   {
@@ -75,7 +76,7 @@ export const destinations: Destination[] = [
     country: "Japan",
     region: "Asia",
     description: "Electric metropolis where ancient temples meet neon-lit streets and cutting-edge technology",
-    imageUrl: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800",
+    imageUrl: photo("1540959733332-eab4deabeeaf"),
     coordinates: { lat: 35.6762, lng: 139.6503 },
   },
   {
@@ -84,7 +85,7 @@ export const destinations: Destination[] = [
     country: "Thailand",
     region: "Asia",
     description: "Vibrant capital of golden temples, floating markets, and electrifying street food",
-    imageUrl: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800",
+    imageUrl: photo("1508009603885-50cf7c579365"),
     coordinates: { lat: 13.7563, lng: 100.5018 },
   },
   {
@@ -93,7 +94,7 @@ export const destinations: Destination[] = [
     country: "Italy",
     region: "Europe",
     description: "Birthplace of pizza, gateway to Pompeii, and a chaotic, passionate slice of authentic Italy",
-    imageUrl: "https://images.unsplash.com/photo-1601581987809-a874a81309c9?w=800",
+    imageUrl: photo("1601581987809-a874a81309c9"),
     coordinates: { lat: 40.8518, lng: 14.2681 },
   },
   {
@@ -102,7 +103,7 @@ export const destinations: Destination[] = [
     country: "Poland",
     region: "Europe",
     description: "Medieval masterpiece with a stunning Old Town square, royal castle, and poignant history",
-    imageUrl: "https://images.unsplash.com/photo-1589398651653-924870c5e4e8?w=800",
+    imageUrl: krakowMarket,
     coordinates: { lat: 50.0647, lng: 19.9450 },
   },
   // Winter destinations
@@ -112,7 +113,7 @@ export const destinations: Destination[] = [
     country: "Norway",
     region: "Europe",
     description: "Gateway to the Arctic with Northern Lights, fjords, and midnight sun adventures",
-    imageUrl: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800",
+    imageUrl: photo("1531366936337-7c912a4589a7"),
     coordinates: { lat: 69.6492, lng: 18.9553 },
   },
   {
@@ -121,7 +122,7 @@ export const destinations: Destination[] = [
     country: "Sweden",
     region: "Europe",
     description: "Scandinavian elegance spread across 14 islands with world-class design and cozy winter charm",
-    imageUrl: "https://images.unsplash.com/photo-1509356843151-3e7d96241e11?w=800",
+    imageUrl: photo("1509356843151-3e7d96241e11"),
     coordinates: { lat: 59.3293, lng: 18.0686 },
   },
   {
@@ -130,7 +131,7 @@ export const destinations: Destination[] = [
     country: "Finland",
     region: "Europe",
     description: "Official hometown of Santa Claus with Arctic Circle adventures and magical winter landscapes",
-    imageUrl: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800",
+    imageUrl: photo("1519681393784-d120267933ba"),
     coordinates: { lat: 66.5039, lng: 25.7294 },
   },
   {
@@ -139,7 +140,7 @@ export const destinations: Destination[] = [
     country: "Switzerland",
     region: "Europe",
     description: "Car-free alpine village beneath the iconic Matterhorn with world-class skiing and hiking",
-    imageUrl: "https://images.unsplash.com/photo-1531310197839-ccf54634509e?w=800",
+    imageUrl: photo("1531310197839-ccf54634509e"),
     coordinates: { lat: 46.0207, lng: 7.7491 },
   },
   {
@@ -148,7 +149,7 @@ export const destinations: Destination[] = [
     country: "Austria",
     region: "Europe",
     description: "Alpine gem surrounded by snowy peaks, baroque architecture, and Olympic heritage",
-    imageUrl: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800",
+    imageUrl: photo("1516483638261-f4dbaf036963"),
     coordinates: { lat: 47.2692, lng: 11.4041 },
   },
   // Cultural hubs
@@ -158,7 +159,7 @@ export const destinations: Destination[] = [
     country: "Spain",
     region: "Europe",
     description: "Gaudí's surreal masterpieces, Mediterranean beaches, and vibrant Catalan culture",
-    imageUrl: "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=800",
+    imageUrl: photo("1583422409516-2895a77efded"),
     coordinates: { lat: 41.3851, lng: 2.1734 },
   },
   {
@@ -167,7 +168,7 @@ export const destinations: Destination[] = [
     country: "Mexico",
     region: "Americas",
     description: "Ancient Aztec ruins meet world-class museums, street art, and legendary cuisine",
-    imageUrl: "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=800",
+    imageUrl: photo("1518105779142-d975f22f1b0a"),
     coordinates: { lat: 19.4326, lng: -99.1332 },
   },
   {
@@ -176,7 +177,7 @@ export const destinations: Destination[] = [
     country: "Turkey",
     region: "Europe",
     description: "Where East meets West across the Bosphorus, with Byzantine wonders and Ottoman grandeur",
-    imageUrl: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=800",
+    imageUrl: photo("1524231757912-21f4fe3a7200"),
     coordinates: { lat: 41.0082, lng: 28.9784 },
   },
   {
@@ -185,7 +186,7 @@ export const destinations: Destination[] = [
     country: "South Korea",
     region: "Asia",
     description: "K-pop capital blending ancient palaces with futuristic tech and legendary street food",
-    imageUrl: "https://images.unsplash.com/photo-1538485399081-7191377e8241?w=800",
+    imageUrl: photo("1538485399081-7191377e8241"),
     coordinates: { lat: 37.5665, lng: 126.9780 },
   },
   {
@@ -194,7 +195,7 @@ export const destinations: Destination[] = [
     country: "Germany",
     region: "Europe",
     description: "Edgy capital of art, history, and legendary nightlife—from Cold War relics to techno temples",
-    imageUrl: "https://images.unsplash.com/photo-1560969184-10fe8719e047?w=800",
+    imageUrl: photo("1560969184-10fe8719e047"),
     coordinates: { lat: 52.5200, lng: 13.4050 },
   },
 ];
@@ -211,10 +212,10 @@ export const itineraries: Itinerary[] = [
     tags: ["History", "Architecture", "Food"],
     author: {
       name: "Alex. T",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=marie",
+      avatar: "",
     },
     rating: 4.8,
-    imageUrl: "https://images.unsplash.com/photo-1541849546-216549ae216d?w=800",
+    imageUrl: photo("1541849546-216549ae216d"),
     days: [
       {
         dayNumber: 1,
@@ -346,10 +347,10 @@ export const itineraries: Itinerary[] = [
     tags: ["Food", "Markets", "Nightlife"],
     author: {
       name: "Jan P.",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=jan",
+      avatar: "",
     },
     rating: 4.9,
-    imageUrl: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800",
+    imageUrl: photo("1555939594-58d7cb561ad1"),
     days: [
       {
         dayNumber: 1,
@@ -417,7 +418,7 @@ export const itineraries: Itinerary[] = [
     tags: ["History", "Nature", "Culture"],
     author: {
       name: "Fiona M.",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=fiona",
+      avatar: "",
     },
     rating: 4.7,
     imageUrl: edinburghSkyline,
@@ -524,10 +525,10 @@ export const itineraries: Itinerary[] = [
     tags: ["Culture", "Food", "Shopping"],
     author: {
       name: "Yuki T.",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=yuki",
+      avatar: "",
     },
     rating: 4.6,
-    imageUrl: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800",
+    imageUrl: photo("1540959733332-eab4deabeeaf"),
     days: [
       {
         dayNumber: 1,
@@ -605,10 +606,10 @@ export const itineraries: Itinerary[] = [
     tags: ["Culture", "Food", "History"],
     author: {
       name: "Suda W.",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=suda",
+      avatar: "",
     },
     rating: 4.8,
-    imageUrl: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800",
+    imageUrl: photo("1508009603885-50cf7c579365"),
     days: [
       {
         dayNumber: 1,
@@ -692,10 +693,10 @@ export const itineraries: Itinerary[] = [
     tags: ["Nature", "Adventure", "Photography"],
     author: {
       name: "Connor L.",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=connor",
+      avatar: "",
     },
     rating: 4.9,
-    imageUrl: "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=800",
+    imageUrl: photo("1503614472-8c93d56e92ce"),
     days: [
       {
         dayNumber: 1,
@@ -805,10 +806,10 @@ export const itineraries: Itinerary[] = [
     tags: ["Food", "History", "Culture"],
     author: {
       name: "Luca R.",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=luca",
+      avatar: "",
     },
     rating: 4.7,
-    imageUrl: "https://images.unsplash.com/photo-1601581987809-a874a81309c9?w=800",
+    imageUrl: photo("1601581987809-a874a81309c9"),
     days: [
       {
         dayNumber: 1,
@@ -902,7 +903,7 @@ export const itineraries: Itinerary[] = [
     tags: ["History", "Culture", "Architecture"],
     author: {
       name: "Marie K.",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=marie",
+      avatar: "",
     },
     rating: 4.8,
     imageUrl: krakowMarket,
@@ -1007,7 +1008,7 @@ export const itineraries: Itinerary[] = [
     tags: ["Food", "Culture", "Nightlife"],
     author: {
       name: "Fiona M.",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=fiona",
+      avatar: "",
     },
     rating: 4.9,
     imageUrl: krakowMarket,
@@ -1078,10 +1079,10 @@ export const itineraries: Itinerary[] = [
     tags: ["Nightlife", "Food", "Culture"],
     author: {
       name: "Carlos M.",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=carlos",
+      avatar: "",
     },
     rating: 4.7,
-    imageUrl: "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=800",
+    imageUrl: photo("1583422409516-2895a77efded"),
     days: [
       {
         dayNumber: 1,
@@ -1157,10 +1158,10 @@ export const itineraries: Itinerary[] = [
     tags: ["Nightlife", "Food", "Culture"],
     author: {
       name: "Kenji N.",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=kenji",
+      avatar: "",
     },
     rating: 4.8,
-    imageUrl: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800",
+    imageUrl: photo("1540959733332-eab4deabeeaf"),
     days: [
       {
         dayNumber: 1,
@@ -1236,10 +1237,10 @@ export const itineraries: Itinerary[] = [
     tags: ["Nightlife", "Culture"],
     author: {
       name: "Anna K.",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=anna",
+      avatar: "",
     },
     rating: 4.9,
-    imageUrl: "https://images.unsplash.com/photo-1560969184-10fe8719e047?w=800",
+    imageUrl: photo("1560969184-10fe8719e047"),
     days: [
       {
         dayNumber: 1,

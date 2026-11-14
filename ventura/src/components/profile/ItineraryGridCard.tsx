@@ -19,6 +19,7 @@ const saveCountFor = (id: string) => {
 export const ItineraryGridCard = ({ itinerary }: ItineraryGridCardProps) => {
   const navigate = useNavigate();
   const destination = destinations.find((d) => d.id === itinerary.destinationId);
+  const placeName = "destinationName" in itinerary ? (itinerary as { destinationName: string }).destinationName : destination?.name;
 
   return (
     <button
@@ -28,12 +29,12 @@ export const ItineraryGridCard = ({ itinerary }: ItineraryGridCardProps) => {
     >
       <SmartImage
         src={itinerary.imageUrl}
-        alt={destination?.name || itinerary.title}
+        alt={placeName || itinerary.title}
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <div className="scrim-b absolute inset-0" />
       <div className="absolute inset-x-0 bottom-0 space-y-1.5 p-3.5 text-on-image">
-        <h3 className="text-display text-[26px]">{destination?.name}</h3>
+        <h3 className="text-display text-[26px]">{placeName}</h3>
         <p className="line-clamp-1 text-xs text-on-image/75">{itinerary.title}</p>
         <div className="flex items-center gap-3 pt-0.5">
           <span className="inline-flex items-center gap-1 font-mono text-xs">
