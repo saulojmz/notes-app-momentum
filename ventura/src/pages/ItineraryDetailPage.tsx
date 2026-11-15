@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Clock, MapPin, Share, Map as MapIcon, Compass, Bookmark, BookmarkCheck, Pencil, Check, Plus, Trash2,
-  Sparkles, Quote, BedDouble, Wallet, Star, Target,
+  Quote, BedDouble, Wallet, Star, Target,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -40,7 +40,7 @@ const TripEditor = ({ trip, onChange }: { trip: PlannedTrip; onChange: (t: Plann
           <ul className="space-y-2">
             {day.stops.map((stop, si) => (
               <li key={stop.id} className="flex items-center gap-2">
-                <span className="w-12 shrink-0 font-mono text-xs tabular text-muted-foreground">{stop.time}</span>
+                <span className="w-12 shrink-0 tabular-nums text-xs tabular-nums text-muted-foreground">{stop.time}</span>
                 <input
                   aria-label={`Stop ${si + 1} on day ${day.dayNumber}`}
                   value={stop.name}
@@ -80,7 +80,7 @@ const TripEditor = ({ trip, onChange }: { trip: PlannedTrip; onChange: (t: Plann
                             name,
                             time: last ? "20:00" : "10:00",
                             duration: "1–2 hours",
-                            description: "Added by you.",
+                            description: "Added by you",
                             category: ({ food: "Food", nightlife: "Nightlife", shopping: "Shopping", history: "History" } as const)[kind as "food"] ?? "Culture",
                             coordinates: last?.coordinates ?? { lat: 0, lng: 0 },
                             mapQuery: `${name}, ${trip.destinationName}`,
@@ -139,7 +139,7 @@ const ItineraryDetailPage = () => {
         className="min-h-screen justify-center"
         icon={Compass}
         title="Itinerary not found"
-        description="It may have been removed by its author."
+        description="It may have been removed by its author"
         action={
           <Button className="w-full" onClick={() => navigate("/itinerary")}>
             Back to itineraries
@@ -171,7 +171,7 @@ const ItineraryDetailPage = () => {
       toast("Removed from your trips");
     } else {
       save(planned);
-      toast.success("Saved to your trips", { description: "Find it on your profile." });
+      toast.success("Saved to your trips", { description: "Find it on your profile" });
     }
   };
 
@@ -213,15 +213,14 @@ const ItineraryDetailPage = () => {
         <div className="absolute inset-x-0 bottom-0 mx-auto max-w-2xl p-5 pb-7 text-on-image">
           <div className="flex flex-wrap gap-1.5">
             {planned && planned.source !== "community" && (
-              <Badge className="bg-brand-gradient border-0 text-primary-foreground">
-                {planned.source === "guided" ? <Target /> : <Sparkles />}
+              <Badge variant="glass" className="tabular-nums">
                 {planned.source === "guided" ? `${planned.match}% match` : SOURCE_LABEL[planned.source]}
               </Badge>
             )}
             <Badge variant="glass">{planned?.vibeLabel ?? itinerary.category}</Badge>
           </div>
-          <h1 className="text-display mt-3 text-[38px]">{itinerary.title}</h1>
-          <p className="mt-2 font-mono text-xs uppercase tracking-[0.14em] text-on-image/75">
+          <h1 className="text-display mt-3 text-[36px]">{itinerary.title}</h1>
+          <p className="mt-2 text-[13px] text-on-image/75">
             {[place.name, place.country].filter(Boolean).join(", ")}
           </p>
         </div>
@@ -235,8 +234,8 @@ const ItineraryDetailPage = () => {
           {/* Author */}
           <div className="flex items-center gap-3">
             {planned && planned.source !== "community" ? (
-              <span className="bg-brand-gradient flex h-10 w-10 items-center justify-center rounded-full text-primary-foreground">
-                <Sparkles className="h-4 w-4" />
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-ink text-[15px] font-medium text-ink-foreground">
+                V
               </span>
             ) : (
               <Avatar className="h-10 w-10">
@@ -245,7 +244,7 @@ const ItineraryDetailPage = () => {
               </Avatar>
             )}
             <div>
-              <p className="text-sm font-semibold">{itinerary.author.name}</p>
+              <p className="text-sm font-medium">{itinerary.author.name}</p>
               <p className="text-xs text-muted-foreground">{planned ? SOURCE_LABEL[planned.source] : "Local author"}</p>
             </div>
           </div>
@@ -277,7 +276,7 @@ const ItineraryDetailPage = () => {
             <div className="surface-sunken flex gap-3 p-4">
               <Target className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
               <p className="text-sm leading-relaxed">
-                <span className="font-semibold">Why it fits. </span>
+                <span className="font-medium">Why it fits. </span>
                 {planned.reason}
               </p>
             </div>
@@ -354,8 +353,8 @@ const ItineraryDetailPage = () => {
               </section>
             )}
             {planned.budget && (
-              <section className="surface-ink flex items-center justify-between gap-4 p-5">
-                <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-muted">
+              <section className="surface flex items-center justify-between gap-4 p-5">
+                <span className="flex items-center gap-2 text-[13px] text-muted-foreground">
                   <Wallet className="h-4 w-4" /> Budget estimate
                 </span>
                 <span className="text-title text-right text-lg">{planned.budget}</span>

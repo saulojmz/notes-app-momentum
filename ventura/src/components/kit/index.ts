@@ -9,3 +9,4 @@ export { BottomSheet } from "./BottomSheet";
 export { StickyFooter } from "./StickyFooter";
 export { Rail } from "./Rail";
 export { Segmented } from "./Segmented";
+export { RouteProgress } from "./RouteProgress";

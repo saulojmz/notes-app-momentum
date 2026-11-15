@@ -25,11 +25,11 @@ export const TemplateSelector = ({ onSelectTemplate }: TemplateSelectorProps) =>
             onClick={() => onSelectTemplate(template.id)}
             className="p-6 space-y-4 cursor-pointer group"
           >
-            <div className="h-14 w-14 rounded-full bg-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div className="h-14 w-14 rounded-full bg-primary/20 flex items-center justify-center transition-transform">
               <Icon className="h-7 w-7 text-primary" />
             </div>
             <div className="space-y-2">
-              <h3 className="font-semibold text-lg">{template.name}</h3>
+              <h3 className="font-medium text-lg">{template.name}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {template.description}
               </p>

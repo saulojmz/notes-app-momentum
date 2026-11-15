@@ -55,7 +55,7 @@ export const BannerGridEditor = ({ onBack, onSave }: BannerGridEditorProps) => {
           <button
             type="button"
             onClick={() => bannerInputRef.current?.click()}
-            className="press flex aspect-[16/9] w-full flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl border-2 border-dashed border-border bg-card text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+            className="press flex aspect-[16/9] w-full flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border-2 border-dashed border-border bg-card text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
           >
             {bannerImage ? (
               <img src={bannerImage} alt="Banner" className="h-full w-full object-cover" />
@@ -84,7 +84,7 @@ export const BannerGridEditor = ({ onBack, onSave }: BannerGridEditorProps) => {
                 <button
                   type="button"
                   onClick={() => sectionInputRefs.current.get(section.id)?.click()}
-                  className="flex h-24 w-24 shrink-0 flex-col items-center justify-center gap-1 overflow-hidden rounded-xl bg-primary/10 text-primary transition-colors hover:bg-primary/15"
+                  className="flex h-24 w-24 shrink-0 flex-col items-center justify-center gap-1 overflow-hidden rounded-xl bg-secondary text-muted-foreground transition-colors hover:bg-primary/15"
                 >
                   {section.imageUrl ? (
                     <img src={section.imageUrl} alt={`Section ${index + 1}`} className="h-full w-full object-cover" />

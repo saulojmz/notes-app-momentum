@@ -12,7 +12,7 @@ export const StepIntro = ({ eyebrow, title, description }: { eyebrow?: string; t
 export const Field = ({ label, hint, children }: { label: string; hint?: ReactNode; children: ReactNode }) => (
   <div className="space-y-3">
     <div className="flex items-baseline justify-between">
-      <p className="text-sm font-semibold">{label}</p>
+      <p className="text-sm font-medium">{label}</p>
       {hint && <p className="meta">{hint}</p>}
     </div>
     {children}

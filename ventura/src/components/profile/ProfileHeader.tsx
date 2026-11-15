@@ -12,7 +12,7 @@ export const ProfileHeader = ({ username }: ProfileHeaderProps) => {
   return (
     <TopBar
       onBack={() => navigate(-1)}
-      title={<span className="font-mono text-[13px] font-normal text-muted-foreground">@{username}</span>}
+      title={<span className="tabular-nums text-[13px] font-normal text-muted-foreground">@{username}</span>}
       right={
         <Button variant="ghost" size="icon" onClick={() => navigate("/settings")} aria-label="Settings">
           <Settings className="!size-5" />

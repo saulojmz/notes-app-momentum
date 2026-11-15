@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { MessagesSquare, Sparkles, Users } from "lucide-react";
+import { MessagesSquare, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EmptyState, TopBar } from "@/components/kit";
 import { PlannerItineraryCard } from "@/components/planner/PlannerItineraryCard";
@@ -19,7 +19,7 @@ const ItineraryOptionsPage = () => {
         <EmptyState
           icon={MessagesSquare}
           title="No itineraries yet"
-          description="Chat with the planner and your options will appear here."
+          description="Chat with the planner and your options will appear here"
           action={
             <Button className="w-full" onClick={() => navigate("/plan-trip/chat")}>
               Start planning
@@ -40,7 +40,7 @@ const ItineraryOptionsPage = () => {
       <div className="mx-auto max-w-2xl space-y-10 px-5">
         <header className="space-y-2 pt-2">
           <p className="eyebrow truncate">{summary || "Your trip"}</p>
-          <h1 className="text-display text-[40px]">Six ways to go</h1>
+          <h1 className="text-display text-[36px]">Your itinerary options</h1>
           <p className="text-[15px] text-muted-foreground">
             Three planned for you{session.provider ? ` by ${session.provider === "Claude" ? "Claude" : session.provider.toLowerCase()}` : ""}, three loved by
             fellow travelers. Save any of them to your profile.
@@ -51,9 +51,7 @@ const ItineraryOptionsPage = () => {
           <section className="space-y-4">
             <div className="flex items-end justify-between">
               <div className="space-y-1">
-                <p className="eyebrow flex items-center gap-1.5">
-                  <Sparkles className="h-3.5 w-3.5 text-primary" /> AI recommendations
-                </p>
+                <p className="eyebrow">From the trip planner</p>
                 <h2 className="text-title text-[22px]">Planned for you</h2>
               </div>
               <span className="meta">{ai.length} options</span>

@@ -15,9 +15,6 @@ export const MapMarkerIcon = ({ type, category, selected, className }: MapMarker
 
   return (
     <div className={cn("relative flex flex-col items-center", className)}>
-      {selected && (
-        <span className={cn("absolute top-0 h-10 w-10 rounded-full animate-marker-pulse", markerTone[type])} />
-      )}
       <div
         className={cn(
           "relative flex h-10 w-10 items-center justify-center rounded-full border-[2.5px] border-card text-on-image shadow-float transition-transform",

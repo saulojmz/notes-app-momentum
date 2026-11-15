@@ -1,7 +1,6 @@
 import { createRoot } from "react-dom/client";
-import "@fontsource-variable/fraunces/full.css";
-import "@fontsource-variable/geist";
-import "@fontsource-variable/geist-mono";
+import "@fontsource-variable/instrument-sans";
+import "@fontsource/instrument-serif/400.css";
 import App from "./App.tsx";
 import "./index.css";
 

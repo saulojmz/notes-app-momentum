@@ -17,12 +17,12 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
       type="button"
       aria-pressed={selected}
       className={cn(
-        "press inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&_svg]:size-4 [&_svg]:shrink-0",
-        size === "md" ? "h-10 px-4 text-sm" : "h-8 px-3 text-[13px]",
+        "press inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-[var(--radius-chip)] border font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&_svg]:size-4 [&_svg]:shrink-0",
+        size === "md" ? "h-9 px-3.5 text-sm" : "h-8 px-3 text-[13px]",
         selected
           ? "border-ink bg-ink text-ink-foreground"
           : tone === "float"
-            ? "glass border-border/60 text-foreground hover:bg-card"
+            ? "glass text-foreground hover:bg-secondary"
             : "border-border bg-card text-foreground hover:border-foreground/25",
         className,
       )}

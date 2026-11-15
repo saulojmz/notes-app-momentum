@@ -19,7 +19,7 @@ interface BookingSummaryStepProps {
 
 const Row = ({ icon: Icon, label, value, sub }: { icon: LucideIcon; label: string; value: string; sub?: string }) => (
   <div className="flex items-start gap-3 px-4 py-3.5">
-    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-secondary text-muted-foreground">
       <Icon className="h-4 w-4" />
     </span>
     <div className="min-w-0">
@@ -60,14 +60,14 @@ export const BookingSummaryStep = ({ guide, date, time, duration, partySize, mee
         </div>
 
         {/* Cost */}
-        <div className="surface-ink flex items-end justify-between p-5">
+        <div className="surface flex items-end justify-between p-5">
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-muted">Total</p>
-            <p className="mt-1 font-mono text-xs text-ink-muted">
+            <p className="text-[13px] text-muted-foreground">Total</p>
+            <p className="mt-1 tabular-nums text-xs text-muted-foreground">
               £{guide.hourlyRate} × {duration}h × {people}
             </p>
           </div>
-          <p className="text-display text-[40px] tabular">£{totalCost}</p>
+          <p className="text-display text-[36px] tabular-nums">£{totalCost}</p>
         </div>
       </div>
 

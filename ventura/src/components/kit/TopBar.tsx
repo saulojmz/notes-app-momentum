@@ -31,7 +31,7 @@ export const TopBar = ({ onBack, title, right, tone = "plain", sticky, className
           </Button>
         )}
       </div>
-      {title && <div className="min-w-0 flex-1 truncate text-center text-[15px] font-semibold">{title}</div>}
+      {title && <div className="min-w-0 flex-1 truncate text-center text-[15px] font-medium">{title}</div>}
       <div className="flex min-w-11 justify-end gap-2">{right}</div>
     </header>
   );

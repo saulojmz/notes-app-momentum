@@ -10,7 +10,7 @@ interface ProfileTabsProps {
 }
 
 const Grid = ({ items }: { items: Itinerary[] }) => (
-  <div className="stagger grid grid-cols-2 gap-3">
+  <div className="grid grid-cols-2 gap-3">
     {items.map((itinerary) => (
       <ItineraryGridCard key={itinerary.id} itinerary={itinerary} />
     ))}
@@ -23,12 +23,12 @@ export const ProfileTabs = ({ postedItineraries, savedItineraries }: ProfileTabs
       <TabsTrigger value="posted" className="flex-1">
         <LayoutGrid />
         Itineraries
-        <span className="font-mono text-xs text-muted-foreground">{postedItineraries.length}</span>
+        <span className="tabular-nums text-xs text-muted-foreground">{postedItineraries.length}</span>
       </TabsTrigger>
       <TabsTrigger value="saved" className="flex-1">
         <Bookmark />
         Saved
-        <span className="font-mono text-xs text-muted-foreground">{savedItineraries.length}</span>
+        <span className="tabular-nums text-xs text-muted-foreground">{savedItineraries.length}</span>
       </TabsTrigger>
     </TabsList>
 
@@ -36,7 +36,7 @@ export const ProfileTabs = ({ postedItineraries, savedItineraries }: ProfileTabs
       {postedItineraries.length > 0 ? (
         <Grid items={postedItineraries} />
       ) : (
-        <EmptyState icon={LayoutGrid} title="No itineraries yet" description="Trips you publish will show up here." />
+        <EmptyState icon={LayoutGrid} title="No itineraries yet" description="Trips you publish will show up here" />
       )}
     </TabsContent>
 
@@ -44,7 +44,7 @@ export const ProfileTabs = ({ postedItineraries, savedItineraries }: ProfileTabs
       {savedItineraries.length > 0 ? (
         <Grid items={savedItineraries} />
       ) : (
-        <EmptyState icon={Bookmark} title="Nothing saved yet" description="Bookmark itineraries to plan your next trip." />
+        <EmptyState icon={Bookmark} title="Nothing saved yet" description="Bookmark itineraries to plan your next trip" />
       )}
     </TabsContent>
   </Tabs>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Bookmark, BookmarkCheck, ChevronDown, Quote, Sparkles, Star, Wallet } from "lucide-react";
+import { ArrowRight, Bookmark, BookmarkCheck, ChevronDown, Quote, Star, Wallet } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MetaDot, MetaItem, SmartImage } from "@/components/kit";
@@ -40,12 +40,8 @@ export const PlannerItineraryCard = ({ trip }: { trip: PlannedTrip }) => {
               {trip.review?.rating.toFixed(1)} · {trip.review?.reviewCount} reviews
             </Badge>
           ) : (
-            <Badge className="bg-brand-gradient border-0 text-primary-foreground">
-              <Sparkles />
-              AI planned
-            </Badge>
+            <Badge variant="glass">Planned with AI</Badge>
           )}
-          {trip.vibeLabel && <Badge variant="glass">{trip.vibeLabel}</Badge>}
         </div>
         <Button
           variant="glass-dark"
@@ -57,7 +53,7 @@ export const PlannerItineraryCard = ({ trip }: { trip: PlannedTrip }) => {
           {saved ? <BookmarkCheck className="text-highlight" /> : <Bookmark />}
         </Button>
         <div className="absolute inset-x-0 bottom-0 p-4 text-on-image">
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-on-image/75">{trip.country}</p>
+          <p className="text-[13px] text-on-image/75">{trip.country}</p>
           <h3 className="text-display mt-1 text-[32px]">{trip.destinationName}</h3>
         </div>
       </div>
@@ -99,13 +95,13 @@ export const PlannerItineraryCard = ({ trip }: { trip: PlannedTrip }) => {
               <ol className="space-y-2">
                 {trip.days.map((d) => (
                   <li key={d.dayNumber} className="surface-sunken p-3">
-                    <p className="text-sm font-semibold">
-                      <span className="font-mono text-primary">{String(d.dayNumber).padStart(2, "0")}</span> {d.title}
+                    <p className="text-sm font-medium">
+                      <span className="tabular-nums text-primary">{String(d.dayNumber).padStart(2, "0")}</span> {d.title}
                     </p>
                     <ul className="mt-1.5 space-y-1 text-[13px] text-muted-foreground">
                       {d.stops.map((s) => (
                         <li key={s.id} className="flex gap-2">
-                          <span className="font-mono text-[11px] tabular text-foreground/60">{s.time}</span>
+                          <span className="tabular-nums text-[11px] tabular-nums text-foreground/60">{s.time}</span>
                           {s.name}
                         </li>
                       ))}

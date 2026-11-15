@@ -17,7 +17,7 @@ const NotFound = () => {
       className="min-h-[80vh] justify-center"
       icon={Compass}
       title="Off the map"
-      description="We couldn't find that page. Let's get you back on route."
+      description="That page doesn't exist or has moved"
       action={
         <Button className="w-full" onClick={() => navigate("/map")}>
           Back to the map

@@ -30,7 +30,7 @@ const BookingDetailsPage = () => {
         className="min-h-screen justify-center"
         icon={CalendarX}
         title="Booking not found"
-        description="It may have been cancelled."
+        description="It may have been cancelled"
         action={
           <Button className="w-full" onClick={() => navigate("/guides")}>
             Back to bookings

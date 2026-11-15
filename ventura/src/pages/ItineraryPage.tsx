@@ -12,12 +12,11 @@ const byCategory = (match: (i: Itinerary) => boolean) => itineraries.filter(matc
 
 const collections = [
   { title: "Top itineraries", items: [...itineraries].sort((a, b) => b.rating - a.rating).slice(0, 8) },
-  { title: "After dark", eyebrow: "Nightlife", items: byCategory((i) => i.category === "Nightlife" || i.tags.includes("Nightlife")) },
-  { title: "Into the wild", eyebrow: "Nature", items: byCategory((i) => i.category === "Nature" || i.tags.includes("Nature")) },
-  { title: "Food & culinary", eyebrow: "Eat & drink", items: byCategory((i) => i.category === "Food" || i.tags.includes("Food")) },
+  { title: "Nightlife", items: byCategory((i) => i.category === "Nightlife" || i.tags.includes("Nightlife")) },
+  { title: "Nature", items: byCategory((i) => i.category === "Nature" || i.tags.includes("Nature")) },
+  { title: "Food & culinary", items: byCategory((i) => i.category === "Food" || i.tags.includes("Food")) },
   {
     title: "Culture & history",
-    eyebrow: "Old stories",
     items: byCategory(
       (i) => i.category === "Culture" || i.category === "History" || i.tags.includes("Culture") || i.tags.includes("History"),
     ),
@@ -42,7 +41,7 @@ const ActionTile = ({
     onClick={onClick}
     className={
       tone === "ink"
-        ? "press surface-ink flex h-[132px] flex-col justify-between p-4 text-left shadow-md"
+        ? "press surface flex h-[132px] flex-col justify-between p-4 text-left"
         : "press surface flex h-[132px] flex-col justify-between p-4 text-left"
     }
   >
@@ -50,8 +49,8 @@ const ActionTile = ({
       <span
         className={
           tone === "ink"
-            ? "flex h-10 w-10 items-center justify-center rounded-full bg-ink-foreground/10"
-            : "flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary"
+            ? "flex h-10 w-10 items-center justify-center rounded-full bg-secondary"
+            : "flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-muted-foreground"
         }
       >
         {icon}
@@ -59,8 +58,8 @@ const ActionTile = ({
       <ArrowUpRight className="h-4 w-4 opacity-50" />
     </div>
     <div>
-      <p className="text-[15px] font-semibold leading-tight">{title}</p>
-      <p className={tone === "ink" ? "mt-0.5 text-xs text-ink-muted" : "mt-0.5 text-xs text-muted-foreground"}>
+      <p className="text-[15px] font-medium leading-tight">{title}</p>
+      <p className={tone === "ink" ? "mt-0.5 text-xs text-muted-foreground" : "mt-0.5 text-xs text-muted-foreground"}>
         {subtitle}
       </p>
     </div>
@@ -85,12 +84,12 @@ const ItineraryPage = () => {
         <p className="eyebrow">
           {destinations.length} cities · {itineraries.length} itineraries
         </p>
-        <h1 className="text-display mt-2 text-[44px]">Itineraries</h1>
+        <h1 className="text-display mt-2 text-[36px]">Itineraries</h1>
       </header>
 
       <div className="space-y-5">
         {/* Search */}
-        <label className="flex h-12 items-center gap-3 rounded-full border border-border bg-card px-4 shadow-xs transition-colors focus-within:border-primary/50 focus-within:ring-4 focus-within:ring-primary/10">
+        <label className="flex h-12 items-center gap-3 rounded-xl border border-border bg-card px-4 transition-colors focus-within:border-primary/50 focus-within:ring-4 focus-within:ring-primary/10">
           <Search className="h-[18px] w-[18px] shrink-0 text-muted-foreground" />
           <input
             placeholder="Search destinations"
@@ -153,7 +152,7 @@ const ItineraryPage = () => {
           .map((collection) => (
             <section key={collection.title} className="space-y-4">
               <SectionHeader
-                eyebrow={collection.eyebrow ?? `${collection.items.length} picks`}
+                eyebrow={`${collection.items.length} itineraries`}
                 title={collection.title}
               />
               <Rail

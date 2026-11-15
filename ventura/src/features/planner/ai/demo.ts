@@ -52,7 +52,7 @@ const ORDER: Key[] = ["destination", "dates", "budget", "activities", "vibe", "p
 
 const QUESTIONS: Record<Key, string[]> = {
   destination: [
-    "Where in the world are you dreaming of? A country, a region, or even “surprise me” works 🌍",
+    "Where in the world are you dreaming of? A country, a region, or “surprise me” all work",
     "Any part of the world calling you? A city, a country or a whole region is fine.",
   ],
   dates: ["When are you thinking of going, and for roughly how long?", "Do you have dates in mind? A month and a rough length is plenty."],
@@ -257,7 +257,7 @@ export const createDemoPlanner = (): PlannerAI => {
       if (criteriaComplete(criteria)) return { text: "", criteria, ready: true };
       const missing = ORDER.find((k) => !criteria[k])!;
       const turn = messages.filter((m) => m.role === "user").length;
-      const ack = newest[0] ? ACK[newest[0]](criteria[newest[0]]!) + " " : turn === 1 ? "Exciting! " : "";
+      const ack = newest[0] ? ACK[newest[0]](criteria[newest[0]]!) + " " : "";
       const text = ack + QUESTIONS[missing][turn % QUESTIONS[missing].length];
       asked.set(text, missing);
       return { text, criteria, ready: false };

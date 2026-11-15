@@ -18,10 +18,10 @@ export const MeetupSpotStep = ({ onNext }: MeetupSpotStepProps) => {
   return (
     <div className="flex min-h-full flex-col">
       <div className="mx-auto w-full max-w-md flex-1 space-y-6 px-5 pb-8 pt-4">
-        <StepIntro eyebrow="Meeting point" title="Where should you meet?" description="All spots are busy, public places." />
+        <StepIntro eyebrow="Meeting point" title="Where should you meet?" description="All spots are busy, public places" />
 
         {/* Map */}
-        <div className="relative h-64 overflow-hidden rounded-3xl bg-secondary shadow-sm">
+        <div className="relative h-64 overflow-hidden rounded-2xl bg-secondary shadow-sm">
           <img src={edinburghMap} alt="Map of meeting points" className="h-full w-full object-cover [filter:saturate(0.55)_sepia(0.06)]" />
           {meetupLocations.map((location) => {
             const isSelected = selected?.id === location.id;
@@ -36,7 +36,7 @@ export const MeetupSpotStep = ({ onNext }: MeetupSpotStepProps) => {
               >
                 <span
                   className={cn(
-                    "flex items-center justify-center rounded-full border-[2.5px] border-card shadow-float transition-all",
+                    "flex items-center justify-center rounded-full border-[2.5px] border-card shadow-float transition-colors",
                     isSelected ? "h-10 w-10 bg-primary text-primary-foreground" : "h-7 w-7 bg-ink text-ink-foreground",
                   )}
                 >

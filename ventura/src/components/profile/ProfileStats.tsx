@@ -12,7 +12,7 @@ export const ProfileStats = ({ itineraries, cities, saved }: ProfileStatsProps) 
       { label: "Saved", value: saved },
     ].map(({ label, value }) => (
       <div key={label} className="flex flex-col items-center">
-        <dd className="text-display text-[30px] tabular">{value}</dd>
+        <dd className="text-display text-[30px] tabular-nums">{value}</dd>
         <dt className="eyebrow mt-1">{label}</dt>
       </div>
     ))}

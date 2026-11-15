@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Slider } from "@/components/ui/slider";
-import { StickyFooter } from "@/components/kit";
+import { RouteProgress, StickyFooter } from "@/components/kit";
 import { OptionRow, PhotoTile } from "@/components/planner/OptionTiles";
 import { catalog, tilePhotos } from "@/features/planner/catalog";
 import { clearGuidedDraft, readGuidedDraft, saveGuidedAnswers, saveGuidedDraft } from "@/features/planner/trips";
@@ -126,18 +126,14 @@ const GuidedPlanningPage = () => {
           <Button variant="ghost" size="icon" onClick={back} aria-label="Back">
             <ArrowLeft className="!size-5" />
           </Button>
-          <span className="font-mono text-[12px] tabular text-muted-foreground">
+          <span className="tabular-nums text-[13px] text-muted-foreground">
             Step {step} of {TOTAL}
           </span>
           <Button variant="ghost" size="icon" onClick={() => navigate("/plan-trip")} aria-label="Exit planner">
             <X className="!size-5" />
           </Button>
         </div>
-        <div className="flex gap-1 px-5 pb-3" aria-hidden>
-          {Array.from({ length: TOTAL }, (_, i) => (
-            <span key={i} className={cn("h-1 flex-1 rounded-full transition-colors duration-300", i < step ? "bg-ink" : "bg-secondary")} />
-          ))}
-        </div>
+        <RouteProgress className="px-5 pb-4" total={TOTAL} current={step} />
       </header>
 
       <main key={step} className="mx-auto w-full max-w-md flex-1 px-5 pb-8 pt-4 animate-fade-in">
@@ -158,7 +154,7 @@ const GuidedPlanningPage = () => {
             <div className="space-y-7">
               <div className="space-y-3">
                 <div className="flex items-baseline justify-between">
-                  <p className="text-sm font-semibold">Dates</p>
+                  <p className="text-sm font-medium">Dates</p>
                   <p className="meta">
                     {range?.from ? `${format(range.from, "MMM d")}${range.to ? ` – ${format(range.to, "MMM d")}` : ""}` : "Flexible"}
                   </p>
@@ -176,11 +172,11 @@ const GuidedPlanningPage = () => {
               </div>
               <div className="space-y-3">
                 <div className="flex items-baseline justify-between">
-                  <p className="text-sm font-semibold">Budget</p>
-                  <p className="text-display text-[32px] tabular">${a.budget.toLocaleString("en-US")}</p>
+                  <p className="text-sm font-medium">Budget</p>
+                  <p className="text-display text-[32px] tabular-nums">${a.budget.toLocaleString("en-US")}</p>
                 </div>
                 <Slider value={[a.budget]} onValueChange={([v]) => set("budget", v)} min={500} max={10000} step={100} aria-label="Budget per person" />
-                <div className="flex justify-between font-mono text-xs text-muted-foreground">
+                <div className="flex justify-between tabular-nums text-xs text-muted-foreground">
                   <span>$500</span>
                   <span>$10,000</span>
                 </div>

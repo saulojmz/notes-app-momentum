@@ -4,6 +4,7 @@ import { ArrowLeft, X } from 'lucide-react';
 import { Guide, MeetupLocation, BookingPreferences, GuideBooking } from '@/types/guide';
 import { meetupLocations } from '@/data/mockGuides';
 import { Button } from '@/components/ui/button';
+import { RouteProgress } from '@/components/kit';
 import { SelectOptionStep } from './SelectOptionStep';
 import { SchedulingStep } from './SchedulingStep';
 import { MeetupSpotStep } from './MeetupSpotStep';
@@ -108,7 +109,6 @@ export const GuideBookingModal = ({ open, onOpenChange, preSelectedGuide }: Guid
   const canGoBack = step !== 'select' && step !== 'confirmed';
   const progressSteps = meetNow ? ['select', 'preferences', 'guides', 'summary'] : ['select', 'scheduling', 'meetup', 'preferences', 'guides', 'summary'];
   const progressIndex = step === 'profile' ? progressSteps.indexOf('guides') : step === 'confirmed' ? progressSteps.length - 1 : progressSteps.indexOf(step);
-  const progress = step === 'confirmed' ? 1 : Math.max(0, progressIndex) / (progressSteps.length - 1);
 
   return (
     <DialogPrimitive.Root open={open} onOpenChange={(o) => (o ? onOpenChange(o) : handleClose())}>
@@ -130,16 +130,14 @@ export const GuideBookingModal = ({ open, onOpenChange, preSelectedGuide }: Guid
               >
                 <ArrowLeft className="!size-5" />
               </Button>
-              <DialogPrimitive.Title className="text-[15px] font-semibold">
+              <DialogPrimitive.Title className="text-[15px] font-medium">
                 {step === 'profile' && selectedGuide ? selectedGuide.name : TITLES[step]}
               </DialogPrimitive.Title>
               <Button variant="ghost" size="icon" onClick={handleClose} aria-label="Close">
                 <X className="!size-5" />
               </Button>
             </div>
-            <div className="mx-5 h-[3px] overflow-hidden rounded-full bg-secondary">
-              <div className="h-full rounded-full bg-primary transition-[width] duration-500 ease-out" style={{ width: `${progress * 100}%` }} />
-            </div>
+            <RouteProgress className="mx-5 mb-1" total={progressSteps.length} current={step === 'confirmed' ? progressSteps.length : Math.max(0, progressIndex) + 1} />
           </header>
 
           {/* Content */}

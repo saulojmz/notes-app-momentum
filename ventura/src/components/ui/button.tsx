@@ -5,25 +5,25 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium ring-offset-background transition-[background-color,color,box-shadow,transform] duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-control)] text-[15px] font-medium ring-offset-background transition-[background-color,color,box-shadow,transform] duration-150 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90",
-        ink: "bg-ink text-ink-foreground shadow-sm hover:bg-ink/90",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        ink: "bg-ink text-ink-foreground hover:bg-ink/90",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         "destructive-outline": "border border-destructive/30 bg-transparent text-destructive hover:bg-destructive/5",
         outline: "border border-input bg-card hover:bg-accent hover:text-accent-foreground",
         secondary: "bg-secondary text-secondary-foreground hover:bg-accent",
         ghost: "hover:bg-accent hover:text-accent-foreground",
-        glass: "glass text-foreground hover:bg-card",
-        "glass-dark": "glass-dark hover:bg-scrim/55",
+        glass: "glass text-foreground hover:bg-secondary",
+        "glass-dark": "glass-dark hover:bg-scrim/65",
         link: "rounded-none px-0 text-primary underline-offset-4 hover:underline",
       },
       size: {
         default: "h-11 px-5",
-        sm: "h-9 px-4 text-[13px]",
-        lg: "h-[52px] px-6 text-[15px]",
+        sm: "h-9 px-3.5 text-sm",
+        lg: "h-12 px-6 text-[15px]",
         icon: "h-11 w-11",
         "icon-sm": "h-9 w-9",
       },

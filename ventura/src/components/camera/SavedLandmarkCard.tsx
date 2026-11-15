@@ -23,7 +23,7 @@ export const SavedLandmarkCard = ({ landmark, onClick, onRemove }: SavedLandmark
         <SmartImage
           src={landmark.capturedImageUrl}
           alt={landmark.name}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-700"
         />
       </div>
       <div className="pt-2.5">

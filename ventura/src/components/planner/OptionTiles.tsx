@@ -27,11 +27,11 @@ export const PhotoTile = ({
       selected && "ring-[3px] ring-ink",
     )}
   >
-    <SmartImage src={image} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+    <SmartImage src={image} alt="" className="absolute inset-0 h-full w-full object-cover" />
     <div className="scrim-b absolute inset-0" />
     <span
       className={cn(
-        "absolute right-2.5 top-2.5 flex h-7 w-7 items-center justify-center rounded-full border-2 transition-all",
+        "absolute right-2.5 top-2.5 flex h-7 w-7 items-center justify-center rounded-full border-2 transition-colors",
         selected ? "border-on-image bg-ink text-ink-foreground" : "border-on-image/70 bg-scrim/20",
       )}
     >
@@ -67,21 +67,21 @@ export const OptionRow = ({
     onClick={onClick}
     className={cn(
       "press flex w-full items-center gap-4 rounded-2xl border p-4 text-left transition-colors",
-      selected ? "border-ink bg-ink text-ink-foreground shadow-md" : "border-border bg-card hover:border-foreground/25",
+      selected ? "border-ink bg-ink text-ink-foreground" : "border-border bg-card hover:border-foreground/25",
     )}
   >
     {Icon && (
       <span
         className={cn(
           "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl",
-          selected ? "bg-ink-foreground/10" : "bg-primary/10 text-primary",
+          selected ? "bg-ink-foreground/10" : "bg-secondary text-muted-foreground",
         )}
       >
         <Icon className="h-6 w-6" strokeWidth={1.75} />
       </span>
     )}
     <span className="min-w-0 flex-1">
-      <span className="block text-[16px] font-semibold">{label}</span>
+      <span className="block text-[16px] font-medium">{label}</span>
       {hint && <span className={cn("mt-0.5 block text-[13px]", selected ? "text-ink-muted" : "text-muted-foreground")}>{hint}</span>}
     </span>
     <span

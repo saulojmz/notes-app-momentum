@@ -18,8 +18,7 @@ export const LandmarkMarker = ({ landmark, onClick }: LandmarkMarkerProps) => {
       style={{ left: `${landmark.position.x}%`, top: `${landmark.position.y}%`, transform: 'translate(-50%, -50%)' }}
     >
       <span className="relative flex h-11 w-11 items-center justify-center">
-        <span className="absolute inset-0 rounded-full bg-on-image/40 animate-marker-pulse" />
-        <span className="absolute inset-0 rounded-full border-2 border-on-image bg-on-image/15 backdrop-blur-sm transition-transform group-hover:scale-110" />
+        <span className="absolute inset-0 rounded-full border-2 border-on-image bg-on-image/15 backdrop-blur-sm" />
         <span className="relative h-3 w-3 rounded-full bg-on-image shadow-sm" />
       </span>
       <span

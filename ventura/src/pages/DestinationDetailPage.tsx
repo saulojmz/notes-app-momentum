@@ -23,7 +23,7 @@ const DestinationDetailPage = () => {
         className="min-h-screen justify-center"
         icon={Compass}
         title="Destination not found"
-        description="It may have moved, or the link is out of date."
+        description="It may have moved, or the link is out of date"
         action={
           <Button className="w-full" onClick={() => navigate("/itinerary")}>
             Back to itineraries
@@ -50,7 +50,7 @@ const DestinationDetailPage = () => {
         <div className="absolute inset-x-0 bottom-0 mx-auto max-w-2xl p-5 pb-7 text-on-image">
           <Badge variant="glass">{destination.region}</Badge>
           <h1 className="text-display mt-3 text-[56px]">{destination.name}</h1>
-          <p className="mt-1 font-mono text-xs uppercase tracking-[0.14em] text-on-image/75">{destination.country}</p>
+          <p className="mt-1 text-[13px] text-on-image/75">{destination.country}</p>
           <p className="mt-3 max-w-[36ch] text-[15px] leading-relaxed text-on-image/85">{destination.description}</p>
         </div>
       </div>
@@ -82,7 +82,7 @@ const DestinationDetailPage = () => {
             description={`No ${selectedCategory.toLowerCase()} itineraries for ${destination.name} so far.`}
           />
         ) : (
-          <div className="stagger grid grid-cols-1 gap-8 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
             {filteredItineraries.map((itinerary) => (
               <ItineraryPreviewCard key={itinerary.id} itinerary={itinerary} />
             ))}

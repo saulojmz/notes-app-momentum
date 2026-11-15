@@ -10,8 +10,8 @@ interface GuideProfileStepProps {
 }
 
 const reviews = (first: string) => [
-  { when: "2 days ago", text: `Amazing experience! ${first} showed us hidden gems we never would have found on our own.` },
-  { when: "1 week ago", text: "Knowledgeable, friendly, and went above and beyond. Highly recommend!" },
+  { when: "2 days ago", text: `${first} showed us hidden gems we never would have found on our own.` },
+  { when: "1 week ago", text: "Knowledgeable, friendly, and went well past the two hours we booked." },
 ];
 
 export const GuideProfileStep = ({ guide, onConfirm }: GuideProfileStepProps) => {
@@ -22,11 +22,11 @@ export const GuideProfileStep = ({ guide, onConfirm }: GuideProfileStepProps) =>
       <div className="mx-auto w-full max-w-md flex-1 pb-8">
         {/* Portrait */}
         <div className="px-5 pt-2">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-secondary">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-secondary">
             <SmartImage src={guide.avatar} alt={guide.name} className="h-full w-full object-cover" />
             <div className="scrim-b absolute inset-0" />
             <div className="absolute inset-x-0 bottom-0 p-5 text-on-image">
-              <p className="flex items-center gap-1 font-mono text-[11px] uppercase tracking-[0.14em] text-on-image/75">
+              <p className="flex items-center gap-1 text-[13px] text-on-image/75">
                 <MapPin className="h-3 w-3" />
                 {guide.location}
               </p>
@@ -39,18 +39,18 @@ export const GuideProfileStep = ({ guide, onConfirm }: GuideProfileStepProps) =>
         <dl className="mx-5 mt-4 grid grid-cols-3 divide-x divide-border rounded-2xl border border-border bg-card py-3 text-center">
           <div>
             <dt className="eyebrow">Rating</dt>
-            <dd className="text-title mt-1 flex items-center justify-center gap-1 text-xl tabular">
+            <dd className="text-title mt-1 flex items-center justify-center gap-1 text-xl tabular-nums">
               <Star className="h-4 w-4 fill-highlight text-highlight" strokeWidth={0} />
               {guide.rating.toFixed(1)}
             </dd>
           </div>
           <div>
             <dt className="eyebrow">Reviews</dt>
-            <dd className="text-title mt-1 text-xl tabular">{guide.reviews}</dd>
+            <dd className="text-title mt-1 text-xl tabular-nums">{guide.reviews}</dd>
           </div>
           <div>
             <dt className="eyebrow">Rate</dt>
-            <dd className="text-title mt-1 text-xl tabular">£{guide.hourlyRate}</dd>
+            <dd className="text-title mt-1 text-xl tabular-nums">£{guide.hourlyRate}</dd>
           </div>
         </dl>
 

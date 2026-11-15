@@ -49,7 +49,7 @@ export const SavedLandmarksView = ({ landmarks, onRemove }: SavedLandmarksViewPr
           <p className="eyebrow">
             {landmarks.length} saved · {countries} {countries === 1 ? 'place' : 'places'}
           </p>
-          <h1 className="text-display mt-2 text-[44px]">Discoveries</h1>
+          <h1 className="text-display mt-2 text-[36px]">Discoveries</h1>
         </header>
 
         <ChipRow className="mb-6">
@@ -63,7 +63,7 @@ export const SavedLandmarksView = ({ landmarks, onRemove }: SavedLandmarksViewPr
         {filtered.length === 0 ? (
           <EmptyStateView />
         ) : (
-          <div className="stagger grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3">
             {filtered.map((landmark) => (
               <SavedLandmarkCard
                 key={landmark.id}

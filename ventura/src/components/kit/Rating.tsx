@@ -11,7 +11,7 @@ interface RatingProps {
 export const Rating = ({ value, count, className, tone = "default" }: RatingProps) => (
   <span
     className={cn(
-      "inline-flex items-center gap-1 font-mono text-xs tabular",
+      "inline-flex items-center gap-1 tabular-nums text-xs tabular-nums",
       tone === "on-image" ? "text-on-image" : "text-foreground",
       className,
     )}

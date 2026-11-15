@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowUp, RotateCcw, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowUp, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CriteriaTracker, GeneratingCard, TypingDots } from "@/components/planner/ChatBits";
 import { fallBackToDemo, getPlannerAI, PlannerAIError, type PlannerAI } from "@/features/planner/ai";
@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 const CHAT_KEY = "ventura_planner_chat";
 const OPENING: ChatMessage = {
   role: "assistant",
-  content: "Tell me where you want to travel! Think about your ideal destination, your budget, the vibe, your dates…",
+  content: "Tell me about the trip you have in mind: where, when, who with, your budget and the pace you like.",
 };
 const STARTERS = [
   "I'm traveling solo and want an adventure",
@@ -110,7 +110,7 @@ const PlannerChatPage = () => {
         await generate(conversation, known, turn.itineraries);
         return;
       }
-      setMessages((m) => [...m, { role: "assistant", content: turn.text || "Tell me a little more?" }]);
+      setMessages((m) => [...m, { role: "assistant", content: turn.text || "Tell me a little more" }]);
       setStatus("idle");
     } catch (e) {
       // Put the message back so it can be resent.
@@ -133,16 +133,13 @@ const PlannerChatPage = () => {
 
   return (
     <div className="flex min-h-[100dvh] flex-col">
-      <header className="pt-safe sticky top-0 z-20 border-b border-border/60 bg-background/90 backdrop-blur-xl">
+      <header className="pt-safe sticky top-0 z-20 border-b border-border bg-background">
         <div className="flex h-16 items-center gap-2 px-3">
           <Button variant="ghost" size="icon" onClick={() => navigate("/plan-trip")} aria-label="Back">
             <ArrowLeft className="!size-5" />
           </Button>
-          <span className="bg-brand-gradient flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-primary-foreground">
-            <Sparkles className="h-4 w-4" />
-          </span>
           <div className="min-w-0 flex-1">
-            <p className="text-[15px] font-semibold leading-tight">Trip planner</p>
+            <p className="text-[15px] font-medium leading-tight">Trip planner</p>
             <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <span className={cn("h-1.5 w-1.5 rounded-full", ai ? "bg-success" : "bg-muted-foreground/40")} />
               {ai ? (ai.id === "claude" ? "with Claude" : ai.label) : "Connecting…"}
@@ -165,13 +162,13 @@ const PlannerChatPage = () => {
         {messages.map((m, i) =>
           m.role === "user" ? (
             <div key={i} className="flex justify-end animate-fade-in">
-              <p className="max-w-[85%] whitespace-pre-wrap rounded-3xl rounded-br-lg bg-ink px-4 py-3 text-[15px] leading-relaxed text-ink-foreground">
+              <p className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-br-md bg-ink px-4 py-3 text-[15px] leading-relaxed text-ink-foreground">
                 {m.content}
               </p>
             </div>
           ) : (
             <div key={i} className="flex animate-fade-in">
-              <p className="max-w-[88%] whitespace-pre-wrap rounded-3xl rounded-bl-lg border border-border/70 bg-card px-4 py-3 text-[15px] leading-relaxed shadow-xs">
+              <p className="max-w-[88%] whitespace-pre-wrap rounded-2xl rounded-bl-md border border-border bg-card px-4 py-3 text-[15px] leading-relaxed">
                 {m.content}
               </p>
             </div>
@@ -186,7 +183,7 @@ const PlannerChatPage = () => {
                 key={s}
                 type="button"
                 onClick={() => send(s)}
-                className="press flex w-full items-center justify-between gap-3 rounded-2xl border border-border bg-card px-4 py-3.5 text-left text-[15px] transition-colors hover:border-primary/40"
+                className="press flex w-full items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3 text-left text-[15px] transition-colors hover:border-foreground/20"
               >
                 {s}
                 <ArrowUp className="h-4 w-4 shrink-0 rotate-45 text-muted-foreground" />
@@ -197,18 +194,18 @@ const PlannerChatPage = () => {
 
         {status === "thinking" && (
           <div className="flex animate-fade-in">
-            <span className="rounded-3xl rounded-bl-lg border border-border/70 bg-card px-4 py-3 shadow-xs">
+            <span className="rounded-2xl rounded-bl-md border border-border bg-card px-4 py-3">
               <TypingDots />
             </span>
           </div>
         )}
         {status === "generating" && <GeneratingCard stage={stage} criteria={criteria} />}
 
-        {notice && <p className="rounded-2xl bg-warning/10 px-4 py-3 text-[13px] text-foreground/80">{notice}</p>}
+        {notice && <p className="rounded-xl bg-warning/10 px-4 py-3 text-[13px] text-foreground/80">{notice}</p>}
         <div ref={endRef} className="scroll-mb-28" />
       </main>
 
-      <footer className="pb-safe sticky bottom-0 z-10 border-t border-border/60 bg-background/90 px-4 pt-3 backdrop-blur-xl">
+      <footer className="pb-safe sticky bottom-0 z-10 border-t border-border bg-background px-4 pt-3">
         <form
           className="mx-auto flex max-w-2xl items-end gap-2"
           onSubmit={(e) => {
@@ -235,8 +232,8 @@ const PlannerChatPage = () => {
                 send();
               }
             }}
-            placeholder={busy ? "Working on it…" : "Where do you want to go?"}
-            className="max-h-40 min-h-[48px] flex-1 resize-none rounded-3xl border border-input bg-card px-4 py-3 text-[15px] leading-snug outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/50 focus:ring-4 focus:ring-primary/10 disabled:opacity-60"
+            placeholder={busy ? "Working on it" : "Message"}
+            className="max-h-40 min-h-[48px] flex-1 resize-none rounded-xl border border-input bg-card px-4 py-3 text-[15px] leading-snug outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/50 focus:ring-4 focus:ring-primary/10 disabled:opacity-60"
           />
           <Button type="submit" size="icon" className="h-12 w-12 shrink-0" disabled={busy || !input.trim()} aria-label="Send">
             <ArrowUp className="!size-5" />

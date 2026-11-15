@@ -13,7 +13,7 @@ export const BookingConfirmedStep = ({ booking, onViewBookings }: BookingConfirm
   <div className="flex min-h-full flex-col">
     <div className="mx-auto w-full max-w-md flex-1 space-y-6 px-5 pb-8 pt-6">
       <div className="text-center animate-scale-in">
-        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-success text-success-foreground shadow-md">
+        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-success text-success-foreground">
           <Check className="h-8 w-8" strokeWidth={2.5} />
         </span>
         <h2 className="text-display mt-5 text-[36px]">You're all set</h2>

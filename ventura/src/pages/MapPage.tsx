@@ -91,7 +91,7 @@ const MapPage = () => {
           key={marker.id}
           type="button"
           aria-label={marker.name}
-          className="absolute z-20 -translate-x-1/2 -translate-y-full animate-fade-scale-in transition-transform hover:scale-105"
+          className="absolute z-20 -translate-x-1/2 -translate-y-full animate-fade-scale-in transition-transform"
           style={{ left: marker.position.x, top: marker.position.y, animationDelay: `${i * 40}ms` }}
           onClick={() => setSelectedMarker(marker)}
         >
@@ -102,7 +102,7 @@ const MapPage = () => {
       {/* Top: search + filters */}
       <div className="top-safe absolute inset-x-0 z-40 space-y-3 px-4">
         <div className="flex items-center gap-2">
-          <label className="glass flex h-12 flex-1 items-center gap-3 rounded-full px-4">
+          <label className="glass flex h-12 flex-1 items-center gap-3 rounded-xl px-4">
             <Search className="h-[18px] w-[18px] shrink-0 text-muted-foreground" />
             <input
               placeholder="Search a place, area or address"
@@ -157,7 +157,7 @@ const MapPage = () => {
 
       {/* Bottom panels */}
       {activeFilter === "safety" && (
-        <div className="bottom-dock glass absolute inset-x-4 z-30 space-y-3 rounded-3xl p-3 animate-fade-in">
+        <div className="bottom-dock glass absolute inset-x-4 z-30 space-y-3 rounded-2xl p-3 animate-fade-in">
           <Segmented<TimeOfDay>
             label="Time of day"
             value={timeOfDay}
@@ -179,7 +179,7 @@ const MapPage = () => {
       )}
 
       {activeFilter === "events" && (
-        <div className="bottom-dock glass absolute inset-x-4 z-30 rounded-3xl p-2 animate-fade-in">
+        <div className="bottom-dock glass absolute inset-x-4 z-30 rounded-2xl p-2 animate-fade-in">
           <Segmented<EventTimeFilter> label="When" value={eventTimeFilter} onChange={setEventTimeFilter} options={eventTimeFilters} />
           <p className="px-2 pb-1 pt-2.5 text-center text-xs text-muted-foreground">
             {markers.length} {markers.length === 1 ? "event" : "events"} nearby

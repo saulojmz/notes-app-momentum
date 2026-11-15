@@ -87,7 +87,7 @@ export const MarkerDetailSheet = ({ marker, onClose }: MarkerDetailSheetProps) =
                 className={cn("bg-card px-4 py-3", details.length % 2 === 1 && i === details.length - 1 && "col-span-2")}
               >
                 <dt className="eyebrow">{label}</dt>
-                <dd className="mt-1 text-sm font-medium tabular">{value}</dd>
+                <dd className="mt-1 text-sm font-medium tabular-nums">{value}</dd>
               </div>
             ))}
           </dl>

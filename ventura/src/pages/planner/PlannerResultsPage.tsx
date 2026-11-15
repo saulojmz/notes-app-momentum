@@ -48,7 +48,7 @@ const PlannerResultsPage = () => {
         <EmptyState
           icon={Compass}
           title="No matches yet"
-          description="Nothing fits every answer. Try another region or fewer hard no's."
+          description="Nothing fits every answer. Try another region or fewer hard no's"
           action={
             <Button className="w-full" onClick={() => navigate("/plan-trip/guided")}>
               Edit answers
@@ -70,13 +70,13 @@ const PlannerResultsPage = () => {
       <div className="mx-auto max-w-2xl space-y-8 px-5">
         <header className="space-y-3 pt-2">
           <p className="eyebrow">{matches.length} destinations scored</p>
-          <h1 className="text-display text-[40px]">Your top matches</h1>
+          <h1 className="text-display text-[36px]">Your top matches</h1>
           <button
             type="button"
             onClick={() => navigate("/plan-trip/guided")}
             className="flex w-full items-center justify-between gap-3 rounded-2xl bg-secondary px-4 py-3 text-left"
           >
-            <span className="truncate font-mono text-xs text-muted-foreground">{label(answers)}</span>
+            <span className="truncate tabular-nums text-xs text-muted-foreground">{label(answers)}</span>
             <Pencil className="h-4 w-4 shrink-0 text-muted-foreground" />
           </button>
         </header>
@@ -99,9 +99,9 @@ const PlannerResultsPage = () => {
           </div>
           {sel && (
             <div key={sel.dest.id} className="flex items-start gap-3 border-t border-border p-4 animate-fade-in">
-              <span className="text-display text-[30px] tabular text-primary">{sel.score}%</span>
+              <span className="text-display text-[32px] tabular-nums text-primary">{sel.score}%</span>
               <div className="min-w-0 flex-1">
-                <p className="font-semibold">
+                <p className="font-medium">
                   {sel.dest.name}, <span className="font-normal text-muted-foreground">{sel.dest.country}</span>
                 </p>
                 <p className="mt-0.5 text-[13px] leading-relaxed text-muted-foreground">{sel.reason}</p>
@@ -115,17 +115,16 @@ const PlannerResultsPage = () => {
 
         {/* Top 3 */}
         <section className="space-y-4">
-          <SectionHeader eyebrow="Best fits" title="Top three" />
-          <div className="stagger space-y-4">
+          <SectionHeader title="Top three" />
+          <div className="space-y-4">
             {top.map((m, i) => (
               <article key={m.dest.id} className="surface overflow-hidden p-0">
                 <div className="relative aspect-[16/9] bg-secondary">
                   <SmartImage src={m.dest.image} alt={m.dest.name} className="h-full w-full object-cover" />
                   <div className="scrim-b absolute inset-0" />
-                  <Badge className="absolute left-3 top-3 h-7 bg-card px-3 font-mono text-[12px] text-foreground">{m.score}% match</Badge>
-                  <span className="text-display absolute right-4 top-2 text-[44px] text-on-image/90">{i + 1}</span>
+                  <Badge className="absolute left-3 top-3 h-7 bg-card px-2.5 tabular-nums text-[13px] text-foreground">{i + 1} · {m.score}% match</Badge>
                   <div className="absolute inset-x-0 bottom-0 p-4 text-on-image">
-                    <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-on-image/75">{m.dest.country}</p>
+                    <p className="text-[13px] text-on-image/75">{m.dest.country}</p>
                     <h3 className="text-display mt-1 text-[32px]">{m.dest.name}</h3>
                   </div>
                 </div>
@@ -157,7 +156,7 @@ const PlannerResultsPage = () => {
 
         {rest.length > 0 && (
           <section className="space-y-3">
-            <SectionHeader eyebrow="Also worth a look" title="Other good fits" />
+            <SectionHeader title="Other good fits" />
             <div className="surface divide-y divide-border overflow-hidden p-0">
               {rest.map((m) => (
                 <button
@@ -171,7 +170,7 @@ const PlannerResultsPage = () => {
                     <span className="block font-medium">{m.dest.name}</span>
                     <span className="meta block truncate">{m.dest.country}</span>
                   </span>
-                  <span className="font-mono text-sm tabular text-primary">{m.score}%</span>
+                  <span className="tabular-nums text-sm text-muted-foreground">{m.score}%</span>
                 </button>
               ))}
             </div>

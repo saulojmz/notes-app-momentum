@@ -24,7 +24,7 @@ const ProfilePage = () => {
   const [profileData, setProfileData] = useState({
     name: "Alex Turner",
     username: "alex_turner",
-    bio: "Solo Traveler | Exploring the world one city at a time 🌍",
+    bio: "Solo traveler, one city at a time",
   });
 
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -78,7 +78,7 @@ const ProfilePage = () => {
         <div className="space-y-4">
           <div className="flex items-center gap-4">
             <Avatar className="h-20 w-20">
-              <AvatarFallback className="text-display bg-primary text-[30px] text-primary-foreground">{initials}</AvatarFallback>
+              <AvatarFallback className="text-display bg-ink text-[30px] text-ink-foreground">{initials}</AvatarFallback>
             </Avatar>
             <div className="min-w-0">
               <h1 className="text-display text-[34px]">{profileData.name}</h1>

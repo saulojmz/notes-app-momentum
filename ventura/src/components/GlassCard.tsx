@@ -17,7 +17,7 @@ export const GlassCard = ({ children, className, hover = false, style, onClick }
   <div
     style={style}
     onClick={onClick}
-    className={cn("surface", hover && "transition-shadow hover:shadow-md", onClick && "cursor-pointer", className)}
+    className={cn("surface", hover && "transition-colors hover:border-foreground/20", onClick && "cursor-pointer", className)}
   >
     {children}
   </div>

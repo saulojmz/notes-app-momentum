@@ -73,7 +73,7 @@ export const TemplateCarousel = ({ onSelectTemplate, onClose }: TemplateCarousel
               onClick={() => emblaApi?.scrollTo(index)}
               aria-label={`Show ${t.name}`}
               className={cn(
-                "h-1.5 rounded-full transition-all",
+                "h-1.5 rounded-full transition-colors",
                 index === selectedIndex ? "w-6 bg-foreground" : "w-1.5 bg-foreground/20",
               )}
             />

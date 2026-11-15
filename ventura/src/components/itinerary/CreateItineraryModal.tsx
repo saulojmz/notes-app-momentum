@@ -6,7 +6,7 @@ import { BannerGridEditor } from "./BannerGridEditor";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Chip } from "@/components/kit";
-import { ArrowLeft, Minus, Plus, Sparkles } from "lucide-react";
+import { ArrowLeft, Minus, Plus } from "lucide-react";
 import { toast } from "sonner";
 
 interface CreateItineraryModalProps {
@@ -105,7 +105,7 @@ export const CreateItineraryModal = ({ open, onOpenChange }: CreateItineraryModa
               <div className="space-y-2">
                 <Label htmlFor="duration">Duration</Label>
                 <div className="flex items-center justify-between rounded-xl border border-input bg-card p-1.5 pl-4">
-                  <span id="duration" className="text-[15px] tabular">
+                  <span id="duration" className="text-[15px] tabular-nums">
                     {formData.duration} {formData.duration === 1 ? "day" : "days"}
                   </span>
                   <div className="flex gap-1">
@@ -150,8 +150,7 @@ export const CreateItineraryModal = ({ open, onOpenChange }: CreateItineraryModa
               </div>
 
               <Button className="w-full" size="lg" onClick={handleGenerateItinerary}>
-                <Sparkles />
-                Generate with AI
+                Generate itinerary
               </Button>
             </div>
           </>
@@ -160,15 +159,12 @@ export const CreateItineraryModal = ({ open, onOpenChange }: CreateItineraryModa
         {step === "generating" && (
           <div className="space-y-5 py-10 text-center">
             <DialogTitle className="sr-only">Creating your itinerary</DialogTitle>
-            <div className="relative mx-auto h-16 w-16">
-              <span className="absolute inset-0 rounded-full bg-primary/20 animate-marker-pulse" />
-              <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                <Sparkles className="h-7 w-7" />
-              </span>
-            </div>
             <div className="space-y-1.5">
-              <h3 className="text-title text-2xl">Crafting your itinerary…</h3>
-              <p className="text-sm text-muted-foreground">Finding the best spots, timing and hidden gems</p>
+              <h3 className="text-title text-xl">Building your itinerary</h3>
+              <p className="text-sm text-muted-foreground">Ordering stops by area and opening hours</p>
+            </div>
+            <div className="relative mx-auto h-1 w-48 overflow-hidden rounded-full bg-secondary" role="progressbar" aria-label="Generating">
+              <div className="progress-run rounded-full" />
             </div>
           </div>
         )}

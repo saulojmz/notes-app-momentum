@@ -42,7 +42,7 @@ export const SchedulingStep = ({ onNext }: SchedulingStepProps) => {
         <Field label="Start time">
           <div className="grid grid-cols-3 gap-2">
             {TIME_SLOTS.map((time) => (
-              <Chip key={time} selected={selectedTime === time} onClick={() => setSelectedTime(time)} className="justify-center tabular">
+              <Chip key={time} selected={selectedTime === time} onClick={() => setSelectedTime(time)} className="justify-center tabular-nums">
                 {time}
               </Chip>
             ))}

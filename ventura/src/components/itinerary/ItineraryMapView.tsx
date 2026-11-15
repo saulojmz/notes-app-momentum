@@ -37,14 +37,14 @@ const ItineraryMapView = () => {
 
       <div className="mx-auto max-w-2xl space-y-8 px-5 pt-2">
         {/* Map placeholder */}
-        <div className="relative h-64 overflow-hidden rounded-3xl bg-secondary">
+        <div className="relative h-64 overflow-hidden rounded-2xl bg-secondary">
           <SmartImage
             src={destination.imageUrl}
             alt={destination.name}
             className="absolute inset-0 h-full w-full object-cover opacity-40 blur-[2px] grayscale"
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-card text-primary shadow-md">
+            <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-card text-primary shadow-float">
               <MapPinned className="h-6 w-6" strokeWidth={1.5} />
             </span>
             <p className="text-title mt-4 text-xl">Interactive map coming soon</p>
@@ -72,7 +72,7 @@ const ItineraryMapView = () => {
                       rel="noreferrer"
                       className="flex items-center gap-3 p-4 transition-colors hover:bg-accent/50"
                     >
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-ink font-mono text-xs font-medium text-ink-foreground">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-ink tabular-nums text-xs font-medium text-ink-foreground">
                         {n}
                       </span>
                       <span className="min-w-0 flex-1">

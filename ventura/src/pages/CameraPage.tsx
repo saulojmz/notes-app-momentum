@@ -61,7 +61,7 @@ const CameraPage = () => {
       capturedImageUrl: capturedImage,
     };
     saveLandmark(savedLandmark);
-    toast.success('Landmark saved', { description: `${landmark.name} is in your discoveries.` });
+    toast.success('Landmark saved', { description: `${landmark.name} is in your discoveries` });
   };
 
   return (

@@ -11,8 +11,8 @@ interface MetaItemProps {
 
 /** Small icon + mono label, for durations, counts, times. */
 export const MetaItem = ({ icon: Icon, children, className, iconClassName }: MetaItemProps) => (
-  <span className={cn("inline-flex items-center gap-1.5 font-mono text-xs tabular text-muted-foreground", className)}>
-    {Icon && <Icon className={cn("h-3.5 w-3.5 shrink-0", iconClassName)} strokeWidth={1.75} />}
+  <span className={cn("inline-flex items-center gap-1.5 text-[13px] tabular-nums text-muted-foreground", className)}>
+    {Icon && <Icon className={cn("h-4 w-4 shrink-0", iconClassName)} strokeWidth={1.5} />}
     {children}
   </span>
 );

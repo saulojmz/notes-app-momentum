@@ -26,7 +26,7 @@ export const ItineraryPreviewCard = ({ itinerary, className }: ItineraryPreviewC
         <SmartImage
           src={itinerary.imageUrl}
           alt={itinerary.title}
-          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          className="h-full w-full object-cover"
         />
         <Badge variant="glass" className="absolute left-3 top-3">
           {itinerary.category}

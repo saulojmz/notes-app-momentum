@@ -1,15 +1,22 @@
-# Ventura — Design System (redesign v1)
+# Ventura — Design System (v3, unslopped)
 
-First-pass redesign. The direction is **editorial travel journal**: warm paper, ink type,
-one confident brand colour, photography given room to breathe. Everything below is
-driven by tokens so the next styling pass is a matter of changing values, not components.
+Direction, set during the unslop pass:
+
+- **Product.** A travel companion that plans trips, guides you around a city and connects you with local guides.
+- **Character.** Calm, exact, a little warm.
+- **World.** Paper maps and window light. Neutral stone surfaces, cobalt map ink, photography carries the colour.
+- **Moments.** Destination photography, the map, the match score on the world dot map.
+- **Signature.** The dashed route line: progress through the planner and booking flows (`RouteProgress`),
+  and the rail between stops on an itinerary day (`.route-line-v`).
+
+Everything is token-driven, so the next styling pass is a matter of changing values, not components.
 
 ## Where styling lives
 
 | What | File |
 | --- | --- |
 | Colour, type, radius, shadow, layout tokens | `src/index.css` (`:root` and `.dark`) |
-| Reusable recipes (`.surface`, `.glass`, `.eyebrow`, …) | `src/index.css` → `@layer components` |
+| Reusable recipes (`.surface`, `.glass`, `.eyebrow`, `.route-line`, …) | `src/index.css` → `@layer components` |
 | Token → Tailwind name mapping | `tailwind.config.ts` |
 | Fonts (self-hosted, no CDN) | `src/main.tsx` imports + `--font-*` tokens |
 | Shared building blocks | `src/components/kit/` |
@@ -18,60 +25,68 @@ driven by tokens so the next styling pass is a matter of changing values, not co
 Feature code uses **no raw colours** (`bg-white`, `text-neutral-900`, `green-500`, hex…).
 If you find yourself needing one, add a token instead.
 
+## Rules
+
+- One accent (`--primary`, cobalt). It marks the main action, the selection, and the one figure that matters
+  (match score, current step). Icon tiles, category labels, list numbers stay neutral.
+- No hue gradients, glows, sparkles or emoji. Icons are lucide, 1.5 stroke, in the text colour.
+- Sentence case, no tracked uppercase labels. Weights 400 and 500 only.
+- No exclamation marks; headlines, labels, buttons, toasts end without a period.
+- Motion uses one curve (`--ease`), no hover scaling, nothing loops unless it is live
+  (your location on the map, the camera analysing).
+- Radii: controls 10px (`--radius-control`), chips 8px (`--radius-chip`), cards 12–16px, sheets/dialogs 20px.
+
 ## Tokens
 
 ### Colour
 | Token | Role | Light |
 | --- | --- | --- |
-| `--background` | Paper | `40 33% 97%` |
-| `--foreground` | Ink text | `30 12% 10%` |
+| `--background` | Stone paper | `60 9% 97%` |
+| `--foreground` / `--ink` | Ink text, selected tiles, user chat bubbles | `60 4% 10%` |
 | `--card` | Raised surface | white |
-| `--primary` | Brand ultramarine (evolved from `#7061E8`) | `238 70% 56%` |
-| `--secondary` / `--muted` / `--accent` | Sand fills, hovers | `38 26% 91–93%` |
-| `--ink` / `--ink-foreground` / `--ink-muted` | Dark surfaces: nav dock, hero tiles, toasts | |
+| `--primary` | Cobalt map ink, the only accent | `224 71% 48%` |
+| `--secondary` / `--muted` / `--accent` | Neutral fills, hovers | `60 6–7% 92–93%` |
+| `--border` / `--input` | Hairlines | `60 5% 85–89%` |
 | `--scrim` / `--on-image` | Photo overlays + text on photos (theme-independent) | |
-| `--highlight` | Ratings, warm accents | saffron |
-| `--primary-2` | Second gradient stop, used only for AI moments (`.bg-brand-gradient`, `.shimmer-bar`) | violet |
-| `--success` `--warning` `--destructive` `--info` | Status, safety map, entry types | |
-| `--cat-events` `--cat-food` `--cat-cafes` | Map marker colours | |
-
-All colours are bare HSL channels, so opacity modifiers work: `bg-primary/10`.
+| `--highlight` | Rating stars only | saffron |
+| `--success` `--warning` `--destructive` `--info` | Status, safety map | toned down |
+| `--cat-events` `--cat-food` `--cat-cafes` | Map marker colours (each means a layer) | |
 
 ### Type
 | Token / class | Use |
 | --- | --- |
-| `--font-display` · `.text-display` | Fraunces — page titles, hero names, big numbers |
-| `.text-title` | Fraunces at text optical size — section and card titles |
-| `--font-sans` | Geist — UI and body |
-| `--font-mono` · `.eyebrow` · `.meta` | Geist Mono — labels, times, counts |
+| `--font-display` · `.text-display` | Instrument Serif 400 — page titles (36px), hero names, key figures |
+| `--font-sans` · `.text-title` | Instrument Sans — UI, body, card and section titles (500) |
+| `.eyebrow`, `.meta` | 13px muted sans, sentence case |
+| `tabular-nums` | Every time, price, count and score |
 
 ### Shape & depth
-- `--radius` (1rem) drives every radius: `rounded-sm/md/lg/xl/2xl/3xl` are offsets from it.
-- `--shadow-xs … --shadow-lg`, `--shadow-float` — warm-tinted, soft.
-- `--dock-height`, `--dock-offset` — the floating nav; `.pb-dock` / `.bottom-dock` keep content and
-  fixed buttons clear of it.
+- `--radius` 12px, `--radius-control` 10px, `--radius-chip` 8px.
+- `--shadow-xs … --shadow-lg`, `--shadow-float` — neutral, soft, small. Floating controls over the map only.
+- `--dock-height` — the bottom tab bar; `.pb-dock` / `.bottom-dock` keep content and fixed buttons clear of it.
 
 ## Recipes (`@layer components`)
-- `.surface` — white card, hairline border, soft shadow. Default container.
-- `.surface-sunken` — sand fill, no border.
-- `.surface-ink` — dark card for primary moments (Create itinerary, Meet now, totals).
+- `.surface` — white card, hairline border, faint shadow. Default container.
+- `.surface-sunken` — neutral fill, no border.
+- `.surface-ink` — kept as an alias of `.surface` for compatibility.
 - `.glass` — floating control over the map.
 - `.glass-dark` — floating control over photography.
 - `.scrim-b` / `.scrim-t` — photo gradients for legible overlaid text.
-- `.eyebrow`, `.meta` — mono labels.
+- `.route-line` / `.route-line-v` — the dashed signature line.
+- `.progress-run` — indeterminate progress track (generating itineraries).
 
 ## Kit (`src/components/kit`)
 `SmartImage` (never shows a broken image), `Chip` / `ChipRow`, `Segmented`, `SectionHeader`,
-`TopBar`, `MetaItem` / `MetaDot`, `Rating`, `EmptyState`, `BottomSheet`, `StickyFooter`, `Rail`.
+`TopBar`, `MetaItem` / `MetaDot`, `Rating`, `EmptyState`, `BottomSheet`, `StickyFooter`, `Rail`,
+`RouteProgress` (the signature stepper).
 
 ## Common restyles
 
 - **Change the brand colour:** edit `--primary` and `--ring` (and `--cat-events` if markers should follow).
-- **Go back to the original lavender:** `--primary: 248 66% 65%;`
 - **Swap fonts:** install another `@fontsource-variable/*` package, import it in `src/main.tsx`,
   and point `--font-display` / `--font-sans` / `--font-mono` at it.
 - **Softer or sharper corners:** change `--radius`.
-- **Light nav instead of ink:** in `Layout.tsx` swap `bg-ink` → `glass`, and the active pill to `bg-ink text-ink-foreground`.
+- **Nav:** `Layout.tsx` renders a standard bottom tab bar; the active tab takes the accent.
 - **Dark mode:** a full `.dark` token set exists; add `class="dark"` to `<html>` to try it.
   The camera landmark panel already uses it for an immersive look.
 - **Map tint:** the base map is desaturated with `[filter:saturate(0.55)_sepia(0.06)]` in `MapPage.tsx`.

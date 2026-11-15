@@ -30,14 +30,14 @@ export const ItineraryGridCard = ({ itinerary }: ItineraryGridCardProps) => {
       <SmartImage
         src={itinerary.imageUrl}
         alt={placeName || itinerary.title}
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700"
       />
       <div className="scrim-b absolute inset-0" />
       <div className="absolute inset-x-0 bottom-0 space-y-1.5 p-3.5 text-on-image">
         <h3 className="text-display text-[26px]">{placeName}</h3>
         <p className="line-clamp-1 text-xs text-on-image/75">{itinerary.title}</p>
         <div className="flex items-center gap-3 pt-0.5">
-          <span className="inline-flex items-center gap-1 font-mono text-xs">
+          <span className="inline-flex items-center gap-1 tabular-nums text-xs">
             <Bookmark className="h-3.5 w-3.5" />
             {saveCountFor(itinerary.id)}
           </span>

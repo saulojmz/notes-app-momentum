@@ -21,7 +21,7 @@ export const DaySection = ({ day, isExpanded = false }: DaySectionProps) => {
         aria-expanded={expanded}
         className="flex w-full items-center gap-4 py-5 text-left"
       >
-        <span className="text-display w-14 shrink-0 text-[44px] tabular text-primary">
+        <span className="text-display w-12 shrink-0 text-[32px] tabular-nums text-foreground">
           {String(day.dayNumber).padStart(2, "0")}
         </span>
         <span className="min-w-0 flex-1">

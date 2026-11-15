@@ -56,7 +56,7 @@ export const LiveCameraView = ({ onCapture, onClose, onViewSaved, savedCount = 0
           <Landmark className="m-auto h-6 w-6 text-on-image" />
         )}
         {savedCount > 0 && (
-          <span className="absolute right-1 top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 font-mono text-[10px] font-medium text-primary-foreground">
+          <span className="absolute right-1 top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 tabular-nums text-[10px] font-medium text-primary-foreground">
             {savedCount}
           </span>
         )}

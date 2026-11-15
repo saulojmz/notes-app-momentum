@@ -29,7 +29,6 @@ export const BookingTicket = ({ booking, showTotal }: BookingTicketProps) => {
           className="absolute -translate-x-1/2 -translate-y-1/2"
           style={{ left: booking.meetupLocation.position.x, top: booking.meetupLocation.position.y }}
         >
-          <span className="absolute inset-0 rounded-full bg-primary animate-marker-pulse" />
           <span className="relative flex h-9 w-9 items-center justify-center rounded-full border-[2.5px] border-card bg-primary text-primary-foreground shadow-float">
             <MapPin className="h-4 w-4" />
           </span>
@@ -37,7 +36,7 @@ export const BookingTicket = ({ booking, showTotal }: BookingTicketProps) => {
       </div>
       <div className="border-b border-border px-4 py-3">
         <p className="eyebrow">Meeting point</p>
-        <p className="mt-0.5 font-semibold">{booking.meetupLocation.name}</p>
+        <p className="mt-0.5 font-medium">{booking.meetupLocation.name}</p>
         <p className="text-xs text-muted-foreground">{booking.meetupLocation.address}</p>
       </div>
 
@@ -45,7 +44,7 @@ export const BookingTicket = ({ booking, showTotal }: BookingTicketProps) => {
       <div className="flex items-center gap-3 px-4 py-4">
         <SmartImage src={booking.guideAvatar} alt={booking.guideName} className="h-12 w-12 rounded-full object-cover" />
         <div className="min-w-0 flex-1">
-          <p className="font-semibold">{booking.guideName}</p>
+          <p className="font-medium">{booking.guideName}</p>
           <p className="text-xs text-muted-foreground">Your companion</p>
         </div>
         <Button variant="secondary" size="sm" onClick={() => toast("Messaging is coming soon")}>
@@ -64,13 +63,13 @@ export const BookingTicket = ({ booking, showTotal }: BookingTicketProps) => {
         {rows.map(({ label, value }) => (
           <div key={label}>
             <dt className="eyebrow">{label}</dt>
-            <dd className="mt-1 text-[15px] font-medium tabular">{value}</dd>
+            <dd className="mt-1 text-[15px] font-medium tabular-nums">{value}</dd>
           </div>
         ))}
         {showTotal && (
           <div className="col-span-2 flex items-baseline justify-between border-t border-border pt-4">
             <dt className="eyebrow">Total</dt>
-            <dd className="text-title text-2xl tabular">£{booking.totalCost}</dd>
+            <dd className="text-title text-2xl tabular-nums">£{booking.totalCost}</dd>
           </div>
         )}
       </dl>

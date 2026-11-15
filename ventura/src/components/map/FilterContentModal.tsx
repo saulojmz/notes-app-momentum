@@ -40,7 +40,7 @@ const FilterItemCard = ({ item }: { item: MapMarker }) => {
       </div>
 
       {/* Title */}
-      <h3 className="text-lg font-semibold text-foreground mb-2">{item.name}</h3>
+      <h3 className="text-lg font-medium text-foreground mb-2">{item.name}</h3>
 
       {/* Address */}
       <div className="flex items-center gap-2 text-muted-foreground text-sm mb-3">
@@ -116,7 +116,7 @@ export const FilterContentModal = ({
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
-          <h2 className="text-xl font-semibold text-foreground">
+          <h2 className="text-xl font-medium text-foreground">
             {filterTitles[filterType]}
           </h2>
         </div>

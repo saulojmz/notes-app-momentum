@@ -25,14 +25,14 @@ export const DestinationCard = ({ destination, className }: DestinationCardProps
       <SmartImage
         src={destination.imageUrl}
         alt={destination.name}
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        className="absolute inset-0 h-full w-full object-cover"
       />
       <div className="scrim-b absolute inset-0" />
       <Badge variant="glass" className="absolute left-3 top-3">
         {destination.region}
       </Badge>
       <div className="absolute inset-x-0 bottom-0 p-4 text-on-image">
-        <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-on-image/75">{destination.country}</p>
+        <p className="text-[13px] text-on-image/75">{destination.country}</p>
         <h3 className="text-display mt-1 text-[34px]">{destination.name}</h3>
         <p className="mt-2 line-clamp-2 text-[13px] leading-snug text-on-image/80">{destination.description}</p>
       </div>

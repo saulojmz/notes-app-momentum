@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Route, MessagesSquare, ArrowRight, type LucideIcon } from "lucide-react";
+import { ListChecks, MessagesSquare, ArrowRight, type LucideIcon } from "lucide-react";
 import { SectionHeader, SmartImage, TopBar } from "@/components/kit";
 import { readGuidedAnswers, readGuidedDraft, readPlannerSession, useSavedTrips } from "@/features/planner/trips";
 
@@ -10,21 +10,20 @@ const PlanTripPage = () => {
   const guidedDone = readGuidedAnswers();
   const { saved } = useSavedTrips();
 
-  const options: { icon: LucideIcon; title: string; description: string; tag: string; to: string; dark?: boolean; resume?: string }[] = [
+  const options: { icon: LucideIcon; title: string; description: string; tag: string; to: string; resume?: string }[] = [
     {
-      icon: Route,
+      icon: ListChecks,
       title: "Guided planning",
-      description: "Answer nine quick questions and we'll match you with destinations.",
+      description: "Answer nine questions and get destinations ranked by fit",
       tag: "9 questions",
       to: "/plan-trip/guided",
-      dark: true,
       resume: draft && draft.step > 1 && draft.step < 9 ? `Resume at step ${draft.step} of 9` : undefined,
     },
     {
       icon: MessagesSquare,
       title: "AI chat",
-      description: "Chat naturally about where, when and how. Get six itineraries back.",
-      tag: "FreeFlow",
+      description: "Describe the trip in your own words and get six itineraries",
+      tag: "Conversation",
       to: "/plan-trip/chat",
     },
   ];
@@ -36,40 +35,30 @@ const PlanTripPage = () => {
       <div className="mx-auto max-w-2xl space-y-10 px-5">
         <header className="pt-4">
           <p className="eyebrow">Plan your trip</p>
-          <h1 className="text-display mt-2 text-[40px]">How would you like to plan?</h1>
-          <p className="mt-3 max-w-[34ch] text-[15px] text-muted-foreground">Pick a way to start. Each path ends with itineraries you can save.</p>
+          <h1 className="text-display mt-2 text-[36px]">How would you like to plan?</h1>
+          <p className="mt-3 max-w-[34ch] text-[15px] text-muted-foreground">Both paths end with itineraries you can save and edit</p>
         </header>
 
-        <div className="stagger space-y-3">
-          {options.map(({ icon: Icon, title, description, tag, to, dark, resume }) => (
+        <div className="space-y-3">
+          {options.map(({ icon: Icon, title, description, tag, to, resume }) => (
             <button
               key={title}
               type="button"
               onClick={() => navigate(to)}
-              className={
-                dark
-                  ? "press surface-ink group flex w-full flex-col gap-10 p-5 text-left shadow-md"
-                  : "press surface group flex w-full flex-col gap-10 p-5 text-left"
-              }
+              className="press surface group flex w-full flex-col gap-8 p-5 text-left transition-colors hover:border-foreground/20"
             >
               <div className="flex w-full items-center justify-between">
-                <span
-                  className={
-                    dark
-                      ? "flex h-12 w-12 items-center justify-center rounded-2xl bg-ink-foreground/10"
-                      : "bg-brand-gradient flex h-12 w-12 items-center justify-center rounded-2xl text-primary-foreground"
-                  }
-                >
-                  <Icon className="h-6 w-6" strokeWidth={1.5} />
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary">
+                  <Icon className="h-5 w-5" strokeWidth={1.5} />
                 </span>
-                <span className={dark ? "font-mono text-[11px] uppercase tracking-[0.14em] text-ink-muted" : "eyebrow"}>{resume ?? tag}</span>
+                <span className={resume ? "text-[13px] text-primary" : "eyebrow"}>{resume ?? tag}</span>
               </div>
               <div className="flex w-full items-end justify-between gap-4">
                 <div>
-                  <h3 className="text-title text-2xl">{title}</h3>
-                  <p className={dark ? "mt-1.5 text-sm text-ink-muted" : "mt-1.5 text-sm text-muted-foreground"}>{description}</p>
+                  <h3 className="text-title text-xl">{title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{description}</p>
                 </div>
-                <ArrowRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-5 w-5 shrink-0 text-muted-foreground" />
               </div>
             </button>
           ))}
@@ -82,7 +71,7 @@ const PlanTripPage = () => {
             className="flex w-full items-center justify-between rounded-2xl bg-secondary px-4 py-3.5 text-left"
           >
             <span>
-              <span className="block text-sm font-semibold">Your guided matches</span>
+              <span className="block text-sm font-medium">Your guided matches</span>
               <span className="meta block truncate">
                 {guidedDone.region === "Anywhere" ? "Anywhere" : guidedDone.region} · {guidedDone.setting} · ${guidedDone.budget.toLocaleString("en-US")}
               </span>
@@ -98,7 +87,7 @@ const PlanTripPage = () => {
             className="flex w-full items-center justify-between rounded-2xl bg-secondary px-4 py-3.5 text-left"
           >
             <span>
-              <span className="block text-sm font-semibold">Your last plan</span>
+              <span className="block text-sm font-medium">Your last plan</span>
               <span className="meta block truncate">
                 {[session.criteria.destination, session.criteria.dates].filter(Boolean).join(" · ") || "6 itineraries"}
               </span>

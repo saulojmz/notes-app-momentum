@@ -67,7 +67,7 @@ export const WorldDotMap = ({ points, selected, onSelect, className }: WorldDotM
               <circle r={r * 2.4} className={isSel ? "fill-primary/25" : "fill-primary/10"} />
               <circle r={r} className={cn("stroke-card", isSel ? "fill-ink" : "fill-primary")} strokeWidth={0.35} />
               {p.rank && (
-                <text y={0.42} textAnchor="middle" className="fill-primary-foreground font-mono" style={{ fontSize: 1.25, fontWeight: 600 }}>
+                <text y={0.42} textAnchor="middle" className="fill-primary-foreground tabular-nums " style={{ fontSize: 1.25, fontWeight: 600 }}>
                   {p.rank}
                 </text>
               )}

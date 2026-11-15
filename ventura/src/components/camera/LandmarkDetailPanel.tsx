@@ -72,14 +72,14 @@ export const LandmarkDetailPanel = ({ landmark, onClose, isSaved = false, onSave
           {/* Gallery */}
           <div className="relative px-4">
             {isLoading ? (
-              <Skeleton className="h-72 w-full rounded-3xl" />
+              <Skeleton className="h-72 w-full rounded-2xl" />
             ) : (
               <SmartImage
                 key={displayImages[activeIndex]}
                 src={displayImages[activeIndex]}
                 alt={landmark.name}
                 onError={() => markFailed(displayImages[activeIndex])}
-                className="h-72 w-full rounded-3xl object-cover"
+                className="h-72 w-full rounded-2xl object-cover"
               />
             )}
             {displayImages.length > 1 && !isLoading && (
@@ -90,7 +90,7 @@ export const LandmarkDetailPanel = ({ landmark, onClose, isSaved = false, onSave
                     type="button"
                     onClick={() => setCurrentImageIndex(idx)}
                     aria-label={`View image ${idx + 1}`}
-                    className={cn('h-1.5 rounded-full transition-all', idx === activeIndex ? 'w-5 bg-on-image' : 'w-1.5 bg-on-image/45')}
+                    className={cn('h-1.5 rounded-full transition-colors', idx === activeIndex ? 'w-5 bg-on-image' : 'w-1.5 bg-on-image/45')}
                   />
                 ))}
               </div>
@@ -100,9 +100,9 @@ export const LandmarkDetailPanel = ({ landmark, onClose, isSaved = false, onSave
           {/* Story */}
           <div className="space-y-5 px-5 pb-10 pt-6">
             <div className="space-y-3">
-              <Badge variant="soft">{landmark.category}</Badge>
-              <h2 className="text-display text-[42px]">{landmark.name}</h2>
-              <p className="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
+              <Badge variant="secondary">{landmark.category}</Badge>
+              <h2 className="text-display text-[36px]">{landmark.name}</h2>
+              <p className="flex items-center gap-1.5 text-[13px] text-muted-foreground">
                 <MapPin className="h-3.5 w-3.5" />
                 {landmark.location} · {landmark.distance}
               </p>
@@ -130,9 +130,9 @@ export const LandmarkDetailPanel = ({ landmark, onClose, isSaved = false, onSave
                       <FactImage src={factImages[fact.id] || fact.thumbnailUrl} alt={fact.title} />
                     )}
                     <div className="flex gap-3">
-                      <span className="text-display text-2xl tabular text-primary">{String(i + 1).padStart(2, '0')}</span>
+                      <span className="text-display text-2xl tabular-nums text-muted-foreground">{String(i + 1).padStart(2, '0')}</span>
                       <div>
-                        <h4 className="font-semibold">{fact.title}</h4>
+                        <h4 className="font-medium">{fact.title}</h4>
                         <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{fact.description}</p>
                       </div>
                     </div>

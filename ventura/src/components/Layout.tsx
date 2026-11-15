@@ -46,10 +46,10 @@ export const Layout = ({ children }: LayoutProps) => {
       {showDock && (
         <nav
           aria-label="Primary"
-          className="fixed left-1/2 z-50 -translate-x-1/2"
-          style={{ bottom: "calc(var(--dock-offset) + env(safe-area-inset-bottom))" }}
+          className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card"
+          style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
         >
-          <div className="flex h-[var(--dock-height)] items-center gap-1 rounded-full bg-ink p-2 shadow-lg">
+          <div className="mx-auto flex h-[var(--dock-height)] max-w-2xl items-stretch">
             {navItems.map((item) => {
               const active = isActive(item, pathname);
               const Icon = item.icon;
@@ -57,17 +57,14 @@ export const Layout = ({ children }: LayoutProps) => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  aria-label={item.label}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "flex h-12 items-center justify-center gap-2 rounded-full transition-all duration-300 ease-out",
-                    active
-                      ? "bg-ink-foreground px-4 text-ink"
-                      : "w-12 text-ink-muted hover:text-ink-foreground",
+                    "flex flex-1 flex-col items-center justify-center gap-1 text-[11px] font-medium transition-colors",
+                    active ? "text-primary" : "text-muted-foreground hover:text-foreground",
                   )}
                 >
-                  <Icon className="h-5 w-5 shrink-0" strokeWidth={active ? 2 : 1.75} />
-                  {active && <span className="whitespace-nowrap text-[13px] font-semibold">{item.label}</span>}
+                  <Icon className="h-5 w-5" strokeWidth={1.5} />
+                  {item.label}
                 </Link>
               );
             })}

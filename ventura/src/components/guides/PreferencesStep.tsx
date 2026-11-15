@@ -7,19 +7,20 @@ import { Button } from "@/components/ui/button";
 import { Chip, StickyFooter } from "@/components/kit";
 import { cn } from "@/lib/utils";
 import { Field, StepIntro } from "./StepIntro";
+import { Coffee, Mountain, Telescope, type LucideIcon } from "lucide-react";
 
 interface PreferencesStepProps {
   onNext: (preferences: BookingPreferences) => void;
 }
 
-const VIBES: { id: VibeType; emoji: string; label: string }[] = [
-  { id: "relaxed", emoji: "🧘", label: "Relaxed" },
-  { id: "curious", emoji: "🧐", label: "Curious" },
-  { id: "adventurous", emoji: "🧗", label: "Adventurous" },
+const VIBES: { id: VibeType; icon: LucideIcon; label: string }[] = [
+  { id: "relaxed", icon: Coffee, label: "Relaxed" },
+  { id: "curious", icon: Telescope, label: "Curious" },
+  { id: "adventurous", icon: Mountain, label: "Adventurous" },
 ];
 
 const EnergySlider = ({ label, value, onChange, low, high }: { label: string; value: number; onChange: (v: number) => void; low: string; high: string }) => (
-  <Field label={label} hint={`${value} / 5`}>
+  <Field label={label} hint={`${value} of 5`}>
     <Slider value={[value]} onValueChange={([v]) => onChange(v)} max={5} min={1} step={1} aria-label={label} />
     <div className="flex justify-between text-xs text-muted-foreground">
       <span>{low}</span>
@@ -63,7 +64,7 @@ export const PreferencesStep = ({ onNext }: PreferencesStepProps) => {
                   vibe === v.id ? "border-ink bg-ink text-ink-foreground" : "border-border bg-card hover:border-foreground/25",
                 )}
               >
-                <span className="text-3xl leading-none">{v.emoji}</span>
+                <v.icon className="h-5 w-5" strokeWidth={1.5} />
                 <span className="text-xs font-medium">{v.label}</span>
               </button>
             ))}

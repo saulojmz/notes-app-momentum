@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Bookmark, CalendarDays, MapPin, ChevronRight, type LucideIcon } from "lucide-react";
+import { Bookmark, CalendarDays, MapPin, ChevronRight, Map as MapIcon, Landmark, Camera, type LucideIcon } from "lucide-react";
 import { toast } from "sonner";
 import { TopBar } from "@/components/kit";
 
@@ -15,10 +15,10 @@ const collections: { icon: LucideIcon; title: string; detail: string }[] = [
   { icon: MapPin, title: "Shared itineraries", detail: "8 published" },
 ];
 
-const achievements = [
-  { emoji: "🗺️", label: "Explorer" },
-  { emoji: "🎭", label: "Culture enthusiast" },
-  { emoji: "📸", label: "Photographer" },
+const achievements: { icon: LucideIcon; label: string }[] = [
+  { icon: MapIcon, label: "Explorer" },
+  { icon: Landmark, label: "Culture enthusiast" },
+  { icon: Camera, label: "Photographer" },
 ];
 
 const SettingsPage = () => {
@@ -31,20 +31,20 @@ const SettingsPage = () => {
       <div className="mx-auto max-w-2xl space-y-10 px-5">
         <header>
           <p className="eyebrow">Account</p>
-          <h1 className="text-display mt-2 text-[44px]">Settings</h1>
+          <h1 className="text-display mt-2 text-[36px]">Settings</h1>
         </header>
 
         {/* This week */}
-        <section className="surface-ink p-5 shadow-md">
+        <section className="surface p-5">
           <div className="flex items-baseline justify-between">
-            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-muted">This week</p>
-            <p className="font-mono text-[11px] text-ink-muted">Edinburgh</p>
+            <p className="text-[13px] text-muted-foreground">This week</p>
+            <p className="tabular-nums text-[11px] text-muted-foreground">Edinburgh</p>
           </div>
           <dl className="mt-5 grid grid-cols-3 gap-3">
             {week.map(({ value, label }) => (
               <div key={label}>
-                <dd className="text-display text-[40px] tabular">{value}</dd>
-                <dt className="mt-1 text-xs text-ink-muted">{label}</dt>
+                <dd className="text-display text-[36px] tabular-nums">{value}</dd>
+                <dt className="mt-1 text-xs text-muted-foreground">{label}</dt>
               </div>
             ))}
           </dl>
@@ -61,7 +61,7 @@ const SettingsPage = () => {
                 onClick={() => toast(`${title} is coming soon`)}
                 className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors hover:bg-accent/50"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-muted-foreground">
                   <Icon className="h-[18px] w-[18px]" />
                 </span>
                 <span className="min-w-0 flex-1">
@@ -78,9 +78,11 @@ const SettingsPage = () => {
         <section className="space-y-3">
           <p className="eyebrow">Achievements · {achievements.length}</p>
           <div className="grid grid-cols-3 gap-3">
-            {achievements.map(({ emoji, label }) => (
+            {achievements.map(({ icon: Icon, label }) => (
               <div key={label} className="surface flex flex-col items-center gap-2 px-2 py-4 text-center">
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-highlight/15 text-2xl">{emoji}</span>
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-muted-foreground">
+                  <Icon className="h-[18px] w-[18px]" strokeWidth={1.5} />
+                </span>
                 <span className="text-xs font-medium leading-tight">{label}</span>
               </div>
             ))}

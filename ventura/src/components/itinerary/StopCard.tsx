@@ -1,6 +1,5 @@
 import { MapPin, Clock, Lightbulb, UtensilsCrossed, Building2, TreePine, ShoppingBag, Landmark, Moon, ArrowUpRight } from "lucide-react";
 import { ItineraryStop } from "@/types/itinerary";
-import { Badge } from "@/components/ui/badge";
 import { MetaItem } from "@/components/kit";
 
 interface StopCardProps {
@@ -27,28 +26,26 @@ export const StopCard = ({ stop, isLast }: StopCardProps) => {
     <li className="grid grid-cols-[56px_1fr] gap-3">
       {/* Rail */}
       <div className="flex flex-col items-center">
-        <span className="font-mono text-[13px] font-medium tabular">{stop.time}</span>
-        <span className="mt-2 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-          <Icon className="h-4 w-4" strokeWidth={1.75} />
+        <span className="tabular-nums text-[13px] font-medium">{stop.time}</span>
+        <span className="mt-2 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border bg-card text-muted-foreground">
+          <Icon className="h-4 w-4" strokeWidth={1.5} />
         </span>
-        {!isLast && <span className="my-2 w-px flex-1 bg-border" />}
+        {!isLast && <span className="route-line-v my-2 w-0.5 flex-1" aria-hidden />}
       </div>
 
       {/* Card */}
       <div className={isLast ? "pb-0" : "pb-5"}>
         <div className="surface space-y-3 p-4">
           <div className="flex items-start justify-between gap-3">
-            <h4 className="text-[16px] font-semibold leading-snug">{stop.name}</h4>
-            <Badge variant="soft" className="shrink-0">
-              {stop.category}
-            </Badge>
+            <h4 className="text-[16px] font-medium leading-snug">{stop.name}</h4>
+            <span className="shrink-0 text-[13px] text-muted-foreground">{stop.category}</span>
           </div>
           <MetaItem icon={Clock}>{stop.duration}</MetaItem>
           <p className="text-sm leading-relaxed text-muted-foreground">{stop.description}</p>
 
           {stop.tips && (
-            <div className="flex gap-2.5 rounded-xl bg-highlight/10 p-3">
-              <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-warning" strokeWidth={1.75} />
+            <div className="flex gap-2.5 rounded-xl bg-secondary p-3">
+              <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={1.5} />
               <p className="text-[13px] leading-relaxed text-foreground/80">{stop.tips}</p>
             </div>
           )}

@@ -22,7 +22,7 @@ export const LandmarkOverlay = ({ imageUrl, landmarks, onBack, onMarkerClick, on
         <ArrowLeft className="!size-5" />
       </Button>
       <span className="glass-dark flex h-9 items-center gap-2 rounded-full px-3.5 text-[13px] font-medium">
-        <span className="font-mono">{landmarks.length}</span> found · tap to explore
+        <span className="tabular-nums ">{landmarks.length}</span> found · tap to explore
       </span>
       {onViewSaved ? (
         <Button variant="glass-dark" size="icon" onClick={onViewSaved} aria-label="View saved landmarks">
