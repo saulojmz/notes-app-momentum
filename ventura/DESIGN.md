@@ -91,21 +91,40 @@ If you find yourself needing one, add a token instead.
   The camera landmark panel already uses it for an immersive look.
 - **Map tint:** the base map is desaturated with `[filter:saturate(0.55)_sepia(0.06)]` in `MapPage.tsx`.
 
-## Trip planner (v2)
+## Two apps (v4)
 
-Ported from the trip-planner handoff and redrawn in Ventura's language.
+One codebase, one design system, two entry points that share `src/` and the same local data:
 
-| Route | Screen |
-| --- | --- |
-| `/plan-trip` | Entry: guided or AI chat, resume, last plan, saved trips |
-| `/plan-trip/guided` | Nine questions, one per screen, progress auto-saved |
-| `/plan-trip/results` | World dot map with match-weighted markers, top three, other fits |
-| `/plan-trip/chat` | AI chat with a six-detail tracker, two-stage generation |
-| `/plan-trip/options` | Three AI itineraries, a separator, three traveler favourites |
-| `/itinerary/:id` | Planned trips open in the regular itinerary screen, with save and edit |
+| App | Entry | For | Routes |
+| --- | --- | --- | --- |
+| Ventura for mobile | `index.html` → `src/main.tsx` → `src/App.tsx` | Being out in the city | `/map`, `/today`, `/camera`, `/guides`, `/bookings/:id`, `/profile`, `/itinerary/:id` (read-only), `/itinerary/:id/map` |
+| Ventura for desktop | `desktop.html` → `src/desktop/main.tsx` → `src/desktop/DesktopApp.tsx` | Planning at a table | `/desktop/trips`, `/desktop/trips/:id`, `/desktop/plan`, `/desktop/plan/options`, `/desktop/explore`, `/desktop/explore/itinerary/:id`, `/desktop/explore/destination/:id`, `/desktop/map`, `/desktop/library`, `/desktop/inbox`, `/desktop/bookings`, `/desktop/profile` |
 
-Code lives in `src/features/planner/` (catalog, matching, itinerary builder, trips store, AI providers),
-`src/pages/planner/` and `src/components/planner/`. Saved trips appear on the Profile "Saved" tab.
+In development both run from `npm run dev` (the desktop app at `/desktop`). A production host needs
+to serve `desktop.html` for `/desktop/*`, the same way the dev server does (`vite.config.ts`).
+
+**What lives where**
+
+- Phone only: the live map (location, walking time, open now), Today, camera, guide booking and its
+  safety features. Small trip edits on the day: done, skip, move earlier or later, a note.
+- Desktop only: AI chat and the nine guided questions (with live matches), comparing options side by
+  side, Explore with filters, the trip editor (drag stops between days, times, costs, stays, transport,
+  a cost per person), the research map with the safety layer, publishing, currency and email settings.
+- Shared through storage (`src/features/trips/`): a trip with dates becomes Today on the phone while it
+  runs; places saved from the phone's map or camera wait in the desktop inbox (`inbox.ts`) to be filed
+  into a day; guide bookings show read-only on desktop. `seed.ts` adds sample data once per browser:
+  an Edinburgh trip running now, a Prague trip coming up, three saved places and a guide booking.
+
+**Desktop layout.** A 248px sidebar (product name, one primary action, navigation, account) and fluid
+content capped at 1200–1440px. Page titles are Instrument Serif at 44px. Rows in the sidebar are 36px.
+The same tokens, kit components and the dashed route line are used throughout; `TripMap`
+(`src/components/map/TripMap.tsx`) plots stops from their coordinates with the highlighted day in the accent.
+
+## Trip planner
+
+Code lives in `src/features/planner/` (catalog, matching, itinerary builder, trips store, AI providers,
+`usePlannerChat`) and `src/components/planner/` (`GuidedQuestions`, `ChatBits`, `OptionTiles`,
+`WorldDotMap`). The desktop pages in `src/desktop/pages/PlanPage.tsx` and `OptionsPage.tsx` use them.
 
 **AI providers** (`src/features/planner/ai/`), chosen once per session:
 1. **Claude**: when a host bridge (`window.__venturaHost`) or an artifact runtime (`window.claude`) is present.
@@ -120,9 +139,10 @@ All three follow the handoff rules: six criteria before generating, one question
 
 ## Interactive prototype build
 
-`npm run build:prototype` writes `dist-prototype/`: relative paths, in-memory routing, all imagery
-bundled. It starts at `/map`, or at the route in the embedding iframe's `data-start` attribute
-(or `window.__VENTURA_START__`). This is what the design review's flows canvas plays.
+`npm run build:prototype` writes `dist-prototype/` with both apps (`index.html` and `desktop.html`):
+relative paths, in-memory routing, all imagery bundled. Mobile starts at `/map` and desktop at `/trips`,
+or at the route in the embedding iframe's `data-start` attribute (or `window.__VENTURA_START__`). This is
+what the design review's flows canvas plays, one page per app.
 
 ## Behaviour preserved from the handoff
 - Dock hidden on `/camera`, `/itinerary/:id`, `/destinations/:id`, `/bookings/:id`.

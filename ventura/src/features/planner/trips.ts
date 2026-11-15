@@ -12,6 +12,7 @@ const emit = () => window.dispatchEvent(new Event(CHANGE));
 
 const readSaved = () => storage.get<PlannedTrip[]>(SAVED_KEY, []);
 const readDrafts = () => storage.get<PlannedTrip[]>(DRAFTS_KEY, []);
+export const readSavedTrips = readSaved;
 
 /** Keep generated-but-unsaved trips so their pages survive a refresh. */
 export const rememberDrafts = (trips: PlannedTrip[]) => {

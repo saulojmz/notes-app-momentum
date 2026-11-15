@@ -8,11 +8,16 @@ import { LandmarkDetailPanel } from '@/components/camera/LandmarkDetailPanel';
 import { SavedLandmarksView } from '@/components/camera/SavedLandmarksView';
 import { mockLandmarks } from '@/data/mockLandmarks';
 import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
+import { addToInbox } from '@/features/trips';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const CameraPage = () => {
   const navigate = useNavigate();
-  const [viewState, setViewState] = useState<CameraViewState>('live');
+  const location = useLocation();
+  // Profile → Discoveries opens straight into the saved view.
+  const [viewState, setViewState] = useState<CameraViewState>(
+    (location.state as { view?: string } | null)?.view === 'saved' ? 'saved' : 'live',
+  );
   const [capturedImage, setCapturedImage] = useState<string>('');
   const [detectedLandmarks, setDetectedLandmarks] = useState<DetectedLandmark[]>([]);
   const [selectedLandmark, setSelectedLandmark] = useState<DetectedLandmark | null>(null);
@@ -61,7 +66,17 @@ const CameraPage = () => {
       capturedImageUrl: capturedImage,
     };
     saveLandmark(savedLandmark);
-    toast.success('Landmark saved', { description: `${landmark.name} is in your discoveries` });
+    addToInbox({
+      id: `inbox-${landmark.id}`,
+      kind: 'landmark',
+      name: landmark.name,
+      detail: landmark.summary,
+      city: landmark.location.split(',')[0],
+      category: 'History',
+      source: 'Camera',
+      image: capturedImage,
+    });
+    toast.success('Landmark saved', { description: 'In your discoveries, and on desktop to add to a trip' });
   };
 
   return (

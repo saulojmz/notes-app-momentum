@@ -1,18 +1,23 @@
-# Ventura — travel companion (redesign v1)
+# Ventura — travel companion
 
-Mobile-first web app: map with safety and events layers, itineraries, landmark camera,
-local guide bookings and profile. This folder holds the redesigned app; see
-[`DESIGN.md`](./DESIGN.md) for the design system and how to restyle it.
+Two apps from one codebase and design system:
+
+- **Ventura for mobile** (`index.html`): for being out in the city. Map with safety and events
+  layers, Today (the trip you're on), landmark camera, local guide bookings and profile.
+- **Ventura for desktop** (`desktop.html`, served at `/desktop`): for planning. AI and guided
+  planning, Explore, the trip editor, a research map, discoveries and what the phone saved.
+
+See [`DESIGN.md`](./DESIGN.md) for what lives where, the design system and how to restyle it.
 
 ```sh
 npm install
-npm run dev          # http://localhost:8080
+npm run dev          # mobile at http://localhost:8080, desktop at http://localhost:8080/desktop
 ```
 
 If the dev server fails with `EAFNOSUPPORT` (no IPv6), run `npx vite --host 127.0.0.1`.
 
-The trip planner lives under `/plan-trip`. Build the embeddable interactive prototype with
-`npm run build:prototype` (see DESIGN.md).
+The trip planner lives in the desktop app at `/desktop/plan`. Build the embeddable interactive
+prototype of both apps with `npm run build:prototype` (see DESIGN.md).
 
 Supabase is optional: without `VITE_SUPABASE_URL` / `VITE_SUPABASE_PUBLISHABLE_KEY` the app
 runs entirely on the mock data in `src/data/`.

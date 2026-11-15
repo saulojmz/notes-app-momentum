@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Map, CalendarDays, Camera, Users, User, type LucideIcon } from "lucide-react";
+import { Map, CalendarCheck, Camera, Users, User, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface LayoutProps {
@@ -17,7 +17,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { icon: Map, label: "Map", path: "/map" },
-  { icon: CalendarDays, label: "Itinerary", path: "/itinerary", match: /^\/(itinerary|plan-trip)/ },
+  { icon: CalendarCheck, label: "Today", path: "/today", match: /^\/(today|itinerary)/ },
   { icon: Camera, label: "Camera", path: "/camera" },
   { icon: Users, label: "Guides", path: "/guides" },
   { icon: User, label: "Profile", path: "/profile", match: /^\/(profile|settings)/ },
@@ -36,7 +36,7 @@ export const Layout = ({ children }: LayoutProps) => {
   const isCameraPage = pathname === "/camera";
   const isMapPage = pathname === "/map";
   // Detail pages and focused planner flows run full-screen.
-  const isDetailPage = /^\/(itinerary|destinations|bookings|plan-trip)\/.+/.test(pathname);
+  const isDetailPage = /^\/(itinerary|bookings)\/.+/.test(pathname);
   const showDock = !isCameraPage && !isDetailPage;
 
   return (

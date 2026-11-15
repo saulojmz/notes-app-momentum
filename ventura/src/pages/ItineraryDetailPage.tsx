@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import {
-  ArrowLeft, Clock, MapPin, Share, Map as MapIcon, Compass, Bookmark, BookmarkCheck, Pencil, Check, Plus, Trash2,
+  ArrowLeft, Clock, MapPin, Share, Map as MapIcon, Compass, Bookmark, BookmarkCheck, Laptop,
   Quote, BedDouble, Wallet, Star, Target,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -10,8 +10,8 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { itineraries, destinations } from "@/data/mockItineraries";
 import { DaySection } from "@/components/itinerary/DaySection";
 import { EmptyState, MetaDot, MetaItem, Rating, SectionHeader, SmartImage } from "@/components/kit";
-import { findTrip, updateTrip, useSavedTrips } from "@/features/planner/trips";
-import { guessKind } from "@/features/planner/builder";
+import { findTrip, useSavedTrips } from "@/features/planner/trips";
+import { copyItinerary, formatRange, tripCosts, total } from "@/features/trips";
 import type { PlannedTrip } from "@/features/planner/types";
 import type { Itinerary } from "@/types/itinerary";
 import { photo } from "@/lib/photos";
@@ -23,92 +23,7 @@ const SOURCE_LABEL: Record<PlannedTrip["source"], string> = {
   ai: "Planned with AI",
   community: "Traveler favourite",
   guided: "Guided match",
-};
-
-/** Inline editor for a planned trip's stops. */
-const TripEditor = ({ trip, onChange }: { trip: PlannedTrip; onChange: (t: PlannedTrip) => void }) => {
-  const [drafts, setDrafts] = useState<Record<number, string>>({});
-  const setDays = (days: PlannedTrip["days"]) => onChange({ ...trip, days });
-
-  return (
-    <div className="space-y-6 pt-2">
-      {trip.days.map((day, di) => (
-        <section key={day.dayNumber} className="space-y-2.5">
-          <p className="eyebrow">
-            Day {day.dayNumber} · {day.title}
-          </p>
-          <ul className="space-y-2">
-            {day.stops.map((stop, si) => (
-              <li key={stop.id} className="flex items-center gap-2">
-                <span className="w-12 shrink-0 tabular-nums text-xs tabular-nums text-muted-foreground">{stop.time}</span>
-                <input
-                  aria-label={`Stop ${si + 1} on day ${day.dayNumber}`}
-                  value={stop.name}
-                  onChange={(e) =>
-                    setDays(trip.days.map((d, i) => (i === di ? { ...d, stops: d.stops.map((s, j) => (j === si ? { ...s, name: e.target.value } : s)) } : d)))
-                  }
-                  className="h-11 min-w-0 flex-1 rounded-xl border border-input bg-card px-3 text-[15px] outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10"
-                />
-                <Button
-                  variant="ghost"
-                  size="icon-sm"
-                  aria-label={`Remove ${stop.name}`}
-                  onClick={() => setDays(trip.days.map((d, i) => (i === di ? { ...d, stops: d.stops.filter((_, j) => j !== si) } : d)))}
-                >
-                  <Trash2 className="text-muted-foreground" />
-                </Button>
-              </li>
-            ))}
-          </ul>
-          <form
-            className="flex items-center gap-2"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const name = (drafts[di] ?? "").trim();
-              if (!name) return;
-              const kind = guessKind(name);
-              const last = day.stops[day.stops.length - 1];
-              setDays(
-                trip.days.map((d, i) =>
-                  i === di
-                    ? {
-                        ...d,
-                        stops: [
-                          ...d.stops,
-                          {
-                            id: `stop-${Date.now().toString(36)}`,
-                            name,
-                            time: last ? "20:00" : "10:00",
-                            duration: "1–2 hours",
-                            description: "Added by you",
-                            category: ({ food: "Food", nightlife: "Nightlife", shopping: "Shopping", history: "History" } as const)[kind as "food"] ?? "Culture",
-                            coordinates: last?.coordinates ?? { lat: 0, lng: 0 },
-                            mapQuery: `${name}, ${trip.destinationName}`,
-                          },
-                        ],
-                      }
-                    : d,
-                ),
-              );
-              setDrafts({ ...drafts, [di]: "" });
-            }}
-          >
-            <span className="w-12 shrink-0" />
-            <input
-              aria-label={`Add a stop to day ${day.dayNumber}`}
-              placeholder="Add a stop"
-              value={drafts[di] ?? ""}
-              onChange={(e) => setDrafts({ ...drafts, [di]: e.target.value })}
-              className="h-11 min-w-0 flex-1 rounded-xl border border-dashed border-input bg-transparent px-3 text-[15px] outline-none placeholder:text-muted-foreground focus:border-primary/50"
-            />
-            <Button type="submit" variant="secondary" size="icon-sm" aria-label="Add stop">
-              <Plus />
-            </Button>
-          </form>
-        </section>
-      ))}
-    </div>
-  );
+  custom: "Your trip",
 };
 
 const ItineraryDetailPage = () => {
@@ -116,14 +31,13 @@ const ItineraryDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const mock = itineraries.find((i) => i.id === id);
+  const { saved: savedTrips, isSaved, save, unsave } = useSavedTrips();
   const [planned, setPlanned] = useState<PlannedTrip | undefined>(() => (mock ? undefined : findTrip(id)));
-  const [editing, setEditing] = useState(false);
-  const { isSaved, save, unsave } = useSavedTrips();
 
+  // Stay in step with edits made on the Today screen or on desktop.
   useEffect(() => {
     setPlanned(mock ? undefined : findTrip(id));
-    setEditing(false);
-  }, [id, mock]);
+  }, [id, mock, savedTrips]);
 
   const itinerary: Itinerary | undefined = mock ?? planned;
   const mockDestination = mock ? destinations.find((d) => d.id === mock.destinationId) : undefined;
@@ -141,8 +55,8 @@ const ItineraryDetailPage = () => {
         title="Itinerary not found"
         description="It may have been removed by its author"
         action={
-          <Button className="w-full" onClick={() => navigate("/itinerary")}>
-            Back to itineraries
+          <Button className="w-full" onClick={() => navigate("/today")}>
+            Back to today
           </Button>
         }
       />
@@ -152,12 +66,7 @@ const ItineraryDetailPage = () => {
   const totalStops = itinerary.days.reduce((sum, day) => sum + day.stops.length, 0);
   const saved = planned ? isSaved(planned.id) : false;
 
-  // Catalog itineraries go back to the profile (as specified); planned trips return to wherever they came from.
-  const goBack = () => {
-    if (!planned) return navigate("/profile");
-    if (location.key !== "default") return navigate(-1);
-    navigate("/plan-trip");
-  };
+  const goBack = () => (location.key !== "default" ? navigate(-1) : navigate("/today"));
 
   const handleShare = () => {
     navigator.clipboard?.writeText(window.location.href).catch(() => undefined);
@@ -165,7 +74,12 @@ const ItineraryDetailPage = () => {
   };
 
   const toggleSave = () => {
-    if (!planned) return;
+    if (!planned) {
+      const copy = copyItinerary(itinerary, place);
+      save(copy);
+      toast.success("Saved to your trips", { description: "Set dates and edit it on desktop" });
+      return;
+    }
     if (saved) {
       unsave(planned.id);
       toast("Removed from your trips");
@@ -174,14 +88,7 @@ const ItineraryDetailPage = () => {
       toast.success("Saved to your trips", { description: "Find it on your profile" });
     }
   };
-
-  const finishEditing = () => {
-    if (planned) {
-      updateTrip(planned);
-      toast.success("Changes saved");
-    }
-    setEditing(false);
-  };
+  const costs = planned ? tripCosts(planned) : null;
 
   return (
     <div className="min-h-screen pb-16">
@@ -196,7 +103,7 @@ const ItineraryDetailPage = () => {
             <ArrowLeft className="!size-5" />
           </Button>
           <div className="flex gap-2">
-            {planned && (
+            {planned?.source !== "custom" && (
               <Button variant="glass-dark" size="icon" onClick={toggleSave} aria-label={saved ? "Remove from saved trips" : "Save trip"}>
                 {saved ? <BookmarkCheck className="!size-5 text-highlight" /> : <Bookmark className="!size-5" />}
               </Button>
@@ -221,7 +128,7 @@ const ItineraryDetailPage = () => {
           </div>
           <h1 className="text-display mt-3 text-[36px]">{itinerary.title}</h1>
           <p className="mt-2 text-[13px] text-on-image/75">
-            {[place.name, place.country].filter(Boolean).join(", ")}
+            {[place.name, place.country, planned && formatRange(planned)].filter(Boolean).join(" · ")}
           </p>
         </div>
       </div>
@@ -274,7 +181,7 @@ const ItineraryDetailPage = () => {
 
           {planned?.reason && (
             <div className="surface-sunken flex gap-3 p-4">
-              <Target className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+              <Target className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={1.5} />
               <p className="text-sm leading-relaxed">
                 <span className="font-medium">Why it fits. </span>
                 {planned.reason}
@@ -283,7 +190,7 @@ const ItineraryDetailPage = () => {
           )}
           {planned?.review && (
             <figure className="surface-sunken flex gap-3 p-4">
-              <Quote className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+              <Quote className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={1.5} />
               <div>
                 <blockquote className="text-sm leading-relaxed">{planned.review.snippet}</blockquote>
                 <figcaption className="meta mt-1.5 flex items-center gap-1.5">
@@ -301,31 +208,20 @@ const ItineraryDetailPage = () => {
             eyebrow={`${itinerary.days.length} ${itinerary.days.length === 1 ? "day" : "days"} · ${totalStops} stops`}
             title="Day by day"
             className="mb-2"
-            action={
-              planned ? (
-                editing ? (
-                  <Button size="sm" onClick={finishEditing}>
-                    <Check />
-                    Done
-                  </Button>
-                ) : (
-                  <Button size="sm" variant="secondary" onClick={() => setEditing(true)}>
-                    <Pencil />
-                    Edit
-                  </Button>
-                )
-              ) : undefined
-            }
           />
-          {editing && planned ? (
-            <TripEditor trip={planned} onChange={setPlanned} />
-          ) : (
-            itinerary.days.map((day, index) => <DaySection key={day.dayNumber} day={day} isExpanded={index === 0} />)
+          {itinerary.days.map((day, index) => (
+            <DaySection key={day.dayNumber} day={day} isExpanded={index === 0} />
+          ))}
+          {planned?.source === "custom" && (
+            <p className="mt-6 flex items-start gap-2.5 rounded-xl bg-secondary px-4 py-3 text-[13px] text-muted-foreground">
+              <Laptop className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.5} />
+              Add days, stays and transport on Ventura for desktop. On the day, mark stops done, skip or reorder them from Today.
+            </p>
           )}
         </div>
 
         {/* Planner extras */}
-        {planned && !editing && (
+        {planned && (
           <div className="space-y-8 pt-8">
             {planned.keyActivities.length > 0 && (
               <section className="space-y-3">
@@ -345,22 +241,24 @@ const ItineraryDetailPage = () => {
                 <ul className="surface divide-y divide-border p-0">
                   {planned.housing.map((h) => (
                     <li key={h} className="flex items-center gap-3 px-4 py-3 text-sm">
-                      <BedDouble className="h-4 w-4 shrink-0 text-primary" />
+                      <BedDouble className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={1.5} />
                       {h}
                     </li>
                   ))}
                 </ul>
               </section>
             )}
-            {planned.budget && (
+            {(planned.budget || (costs && costs.total > 0)) && (
               <section className="surface flex items-center justify-between gap-4 p-5">
                 <span className="flex items-center gap-2 text-[13px] text-muted-foreground">
-                  <Wallet className="h-4 w-4" /> Budget estimate
+                  <Wallet className="h-4 w-4" strokeWidth={1.5} /> {costs && costs.total > 0 ? "Cost per person" : "Budget estimate"}
                 </span>
-                <span className="text-title text-right text-lg">{planned.budget}</span>
+                <span className="text-title text-right text-lg tabular-nums">
+                  {costs && costs.total > 0 ? total(costs.total, planned.currency) : planned.budget}
+                </span>
               </section>
             )}
-            {!saved && (
+            {!saved && planned.source !== "custom" && (
               <Button size="lg" className="w-full" onClick={toggleSave}>
                 <Bookmark />
                 Save this trip

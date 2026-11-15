@@ -74,9 +74,31 @@ export const criteriaComplete = (c: TripCriteria) => CRITERIA.every(({ key }) =>
  * A trip produced by the planner. It extends the app's Itinerary so it opens
  * in the regular itinerary screens, and adds what the planner knows.
  */
+export interface TripStay {
+  id: string;
+  name: string;
+  area?: string;
+  /** Day the stay starts (1-based) and how many nights. */
+  fromDay: number;
+  nights: number;
+  pricePerNight: number;
+}
+
+export type TransportMode = "train" | "flight" | "bus" | "car" | "ferry";
+
+export interface TripLeg {
+  id: string;
+  mode: TransportMode;
+  from: string;
+  to: string;
+  day: number;
+  time?: string;
+  price: number;
+}
+
 export interface PlannedTrip extends Itinerary {
   planned: true;
-  source: "ai" | "community" | "guided";
+  source: "ai" | "community" | "guided" | "custom";
   destinationName: string;
   country: string;
   summary: string;
@@ -91,6 +113,12 @@ export interface PlannedTrip extends Itinerary {
   /** Planner catalog id when the destination is one we know. */
   catalogId?: string;
   createdAt: number;
+  /** Set on desktop. The trip shows up as Today on the phone while it runs. */
+  startDate?: string;
+  stays?: TripStay[];
+  transport?: TripLeg[];
+  currency?: string;
+  published?: boolean;
 }
 
 export interface ChatMessage {

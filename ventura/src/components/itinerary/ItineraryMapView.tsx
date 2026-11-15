@@ -1,12 +1,15 @@
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowUpRight, MapPinned } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { TripMap } from "@/components/map/TripMap";
 import { itineraries, destinations } from "@/data/mockItineraries";
-import { SmartImage, TopBar } from "@/components/kit";
+import { TopBar } from "@/components/kit";
 import { findTrip } from "@/features/planner/trips";
 
 const ItineraryMapView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [day, setDay] = useState<number | null>(null);
 
   const planned = itineraries.some((i) => i.id === id) ? undefined : findTrip(id);
   const itinerary = itineraries.find((i) => i.id === id) ?? planned;
@@ -17,7 +20,6 @@ const ItineraryMapView = () => {
 
   if (!itinerary || !destination) return null;
 
-  const allStops = itinerary.days.flatMap((day) => day.stops);
   let n = 0;
 
   return (
@@ -37,22 +39,7 @@ const ItineraryMapView = () => {
 
       <div className="mx-auto max-w-2xl space-y-8 px-5 pt-2">
         {/* Map placeholder */}
-        <div className="relative h-64 overflow-hidden rounded-2xl bg-secondary">
-          <SmartImage
-            src={destination.imageUrl}
-            alt={destination.name}
-            className="absolute inset-0 h-full w-full object-cover opacity-40 blur-[2px] grayscale"
-          />
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-            <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-card text-primary shadow-float">
-              <MapPinned className="h-6 w-6" strokeWidth={1.5} />
-            </span>
-            <p className="text-title mt-4 text-xl">Interactive map coming soon</p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              All {allStops.length} stops in {destination.name}, plotted in order.
-            </p>
-          </div>
-        </div>
+        <TripMap days={itinerary.days} selectedDay={day} onSelectDay={setDay} className="h-72" labels={false} />
 
         {/* Stops by day */}
         {itinerary.days.map((day) => (

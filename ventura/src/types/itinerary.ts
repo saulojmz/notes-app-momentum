@@ -25,6 +25,11 @@ export interface ItineraryStop {
   tips?: string;
   /** Free-text place for map links when coordinates are approximate. */
   mapQuery?: string;
+  /** Planning extras: price per person, a note added on the go, and today's progress. */
+  cost?: number;
+  note?: string;
+  skipped?: boolean;
+  done?: boolean;
 }
 
 export interface ItineraryDay {
